@@ -10,7 +10,7 @@
 - Heaps
 - Graphs
 
-## System Design
+## [System Design](https://github.com/dukhniav/prep/blob/master/system-design/system-design.md#systems-design-interview)
 
 ## Algorithms
 - Big O notation
