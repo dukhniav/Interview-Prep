@@ -36,11 +36,11 @@ where the big-O notation hides some superfluous details.
 
 ### Traversals
 - Depth-first traversal
-..* PreOrder traversal - visit the parent first and then left and right children;
--- InOrder traversal - visit the left child, then the parent and the right child;
--- PostOrder traversal - visit left child, then the right child and then the parent; 
+  * PreOrder traversal - visit the parent first and then left and right children;
+  * InOrder traversal - visit the left child, then the parent and the right child;
+  * PostOrder traversal - visit left child, then the right child and then the parent; 
 - Breadth-first traversal
--- There is only one kind of breadth-first traversal--the level order traversal. This traversal visits nodes by levels from top to bottom and from left to right. 
+  * There is only one kind of breadth-first traversal--the level order traversal. This traversal visits nodes by levels from top to bottom and from left to right. 
 
 ## Binary Search Tree
 ![](https://github.com/dukhniav/prep/blob/master/data-structures/images/binary_search_tree.jpg)
