@@ -1,6 +1,6 @@
 # Interview Prep Guide
 
-## Data Structures
+## [Data Structures](https://github.com/dukhniav/prep/blob/master/data-structures/data-structures.md#data-structures-interview)
 - Arrays
 - Linked Lists
 - Stacks
