@@ -6,7 +6,7 @@
 - Stacks
 - Queues
 - Hash Table
-- Trees
+- [Trees](https://github.com/dukhniav/prep/blob/master/data-structures/tree.md)
 - Heaps
 - Graphs
 
