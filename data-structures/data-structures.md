@@ -47,6 +47,8 @@ This feature makes it **LIFO** data structure. LIFO stands for Last-in-first-out
 
 A stack can be implemented by means of Array, Structure, Pointer, and Linked List. Stack can either be a fixed size one or it may have a sense of dynamic resizing. Here, we are going to implement stack using arrays, which makes it a fixed size stack implementation.
 
+![alt text](https://github.com/dukhniav/prep/blob/master/data-structures/images/stack_representation.jpg)
+
 ### Basic Operations
 #### push()
 - Pushing (storing) an element on the stack.
@@ -57,6 +59,8 @@ The process of putting a new data element onto stack is known as a Push Operatio
 3. If the stack is not full, increments top to point next empty space.
 4. Adds data element to the stack location, where top is pointing.
 5. Returns success.
+
+![alt text](https://github.com/dukhniav/prep/blob/master/data-structures/images/stack_push_operation.jpg)
 
 ##### Algorithm
 `begin procedure push: stack, data
@@ -118,7 +122,9 @@ bool isfull() {
 − check if stack is empty.
 
 ## Queues
+![alt text](https://github.com/dukhniav/prep/blob/master/data-structures/images/queue_example.jpg)
 ## Hash Table
 ## Trees
 ## Heaps
 ## Graphs
+![alt text](https://github.com/dukhniav/prep/blob/master/data-structures/images/graph.jpg)
