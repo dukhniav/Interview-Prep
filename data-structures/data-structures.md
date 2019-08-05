@@ -20,7 +20,7 @@ An array is a collection of items stored at contiguous memory locations. The ide
 
 ## Linked Lists
 A linked list consists of nodes where each node contains a data field and a reference(link) to the next node in the list.
-![]("https://github.com/dukhniav/prep/blob/master/data-structures/images/linked_list.jpg")
+![alt text](https://github.com/dukhniav/prep/blob/master/data-structures/images/linked_list.jpg)
 
 ### Singly linked list
 ### Doubly linked list
