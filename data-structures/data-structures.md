@@ -23,8 +23,20 @@ A linked list consists of nodes where each node contains a data field and a refe
 ![alt text](https://github.com/dukhniav/prep/blob/master/data-structures/images/linked_list.jpg)
 
 ### Singly linked list
+Item navigation is forward only.
+
 ### Doubly linked list
+Items can be navigated forward and backward.
+
 ### Circular linked list
+Last item contains link of the first element as next and the first element has a link to the last element as previous.
+
+### Basic Operations
+- Insertion − Adds an element at the beginning of the list.
+- Deletion − Deletes an element at the beginning of the list.
+- Display − Displays the complete list.
+- Search − Searches an element using the given key.
+- Delete − Deletes an element using the given key.
 
 ## Stacks
 ## Queues
