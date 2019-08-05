@@ -47,6 +47,8 @@ This feature makes it **LIFO** data structure. LIFO stands for Last-in-first-out
 
 A stack can be implemented by means of Array, Structure, Pointer, and Linked List. Stack can either be a fixed size one or it may have a sense of dynamic resizing. Here, we are going to implement stack using arrays, which makes it a fixed size stack implementation.
 
+![alt text](https://github.com/dukhniav/prep/blob/master/data-structures/images/stack_representation.jpg)
+
 ### Basic Operations
 #### push()
 - Pushing (storing) an element on the stack.
@@ -58,8 +60,11 @@ The process of putting a new data element onto stack is known as a Push Operatio
 4. Adds data element to the stack location, where top is pointing.
 5. Returns success.
 
+![alt text](https://github.com/dukhniav/prep/blob/master/data-structures/images/stack_push_operation.jpg)
+
 ##### Algorithm
-`begin procedure push: stack, data
+```
+begin procedure push: stack, data
 
    if stack is full
       return null
@@ -68,7 +73,8 @@ The process of putting a new data element onto stack is known as a Push Operatio
    top ← top + 1
    stack[top] ← data
 
-end procedure`
+end procedure
+```
 
 #### pop()
 − Removing (accessing) an element from the stack.
@@ -83,7 +89,8 @@ A Pop operation may involve the following steps −
 5. Returns success.
 
 ##### Algorithm
-`begin procedure pop: stack
+```
+begin procedure pop: stack
 
    if stack is empty
       return null
@@ -93,32 +100,35 @@ A Pop operation may involve the following steps −
    top ← top - 1
    return data
 
-end procedure`
+end procedure
+```
 
 #### peek()
 − get the top data element of the stack, without removing it.
-`
+```
 int peek() {
    return stack[top];
 }
-`
+```
 
 #### isFull()
 − check if stack is full.
-`
+```
 bool isfull() {
    if(top == MAXSIZE)
       return true;
    else
       return false;
 }
-`
+```
 
 #### isEmpty()
 − check if stack is empty.
 
 ## Queues
+![alt text](https://github.com/dukhniav/prep/blob/master/data-structures/images/queue_example.jpg)
 ## Hash Table
 ## Trees
 ## Heaps
 ## Graphs
+![alt text](https://github.com/dukhniav/prep/blob/master/data-structures/images/graph.jpg)
