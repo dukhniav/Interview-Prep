@@ -63,7 +63,8 @@ The process of putting a new data element onto stack is known as a Push Operatio
 ![alt text](https://github.com/dukhniav/prep/blob/master/data-structures/images/stack_push_operation.jpg)
 
 ##### Algorithm
-`begin procedure push: stack, data
+```
+begin procedure push: stack, data
 
    if stack is full
       return null
@@ -72,7 +73,8 @@ The process of putting a new data element onto stack is known as a Push Operatio
    top ← top + 1
    stack[top] ← data
 
-end procedure`
+end procedure
+```
 
 #### pop()
 − Removing (accessing) an element from the stack.
@@ -87,7 +89,8 @@ A Pop operation may involve the following steps −
 5. Returns success.
 
 ##### Algorithm
-`begin procedure pop: stack
+```
+begin procedure pop: stack
 
    if stack is empty
       return null
@@ -97,26 +100,27 @@ A Pop operation may involve the following steps −
    top ← top - 1
    return data
 
-end procedure`
+end procedure
+```
 
 #### peek()
 − get the top data element of the stack, without removing it.
-`
+```
 int peek() {
    return stack[top];
 }
-`
+```
 
 #### isFull()
 − check if stack is full.
-`
+```
 bool isfull() {
    if(top == MAXSIZE)
       return true;
    else
       return false;
 }
-`
+```
 
 #### isEmpty()
 − check if stack is empty.
