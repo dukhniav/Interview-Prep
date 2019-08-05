@@ -36,7 +36,7 @@ where the big-O notation hides some superfluous details.
 
 ### Traversals
 - Depth-first traversal
--- PreOrder traversal - visit the parent first and then left and right children;
+..* PreOrder traversal - visit the parent first and then left and right children;
 -- InOrder traversal - visit the left child, then the parent and the right child;
 -- PostOrder traversal - visit left child, then the right child and then the parent; 
 - Breadth-first traversal
