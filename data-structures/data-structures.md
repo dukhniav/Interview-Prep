@@ -125,8 +125,7 @@ bool isfull() {
 #### isEmpty()
 − check if stack is empty.
 
-## Queues
-![alt text](https://github.com/dukhniav/prep/blob/master/data-structures/images/queue_example.jpg)
+
 ## Hash Table
 ## Trees
 ## Heaps
