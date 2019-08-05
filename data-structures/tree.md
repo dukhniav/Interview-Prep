@@ -45,6 +45,35 @@ where the big-O notation hides some superfluous details.
 ## Binary Search Tree
 ![](https://github.com/dukhniav/prep/blob/master/data-structures/images/binary_search_tree.jpg)
 
+The basic idea behind this data structure is to have such a storing repository that provides the efficient way of data sorting, searching and retriving. 
+
+A BST is a binary tree where nodes are ordered in the following way:
+
+- each node contains one key (also known as data)
+- the keys in the left subtree are less then the key in its parent node, in short L < P;
+- the keys in the right subtree are greater the key in its parent node, in short P < R;
+- duplicate keys are not allowed. 
+
+### Implementation
+
+### Insertion
+The insertion procedure is quite similar to searching. We start at the root and recursively go down the tree searching for a location in a BST to insert a new node. If the element to be inserted is already in the tree, we are done (we do not insert duplicates). The new node will always replace a NULL reference.
+
+### Searching
+Searching in a BST always starts at the root. We compare a data stored at the root with the key we are searching for (let us call it as toSearch). If the node does not contain the key we proceed either to the left or right child depending upon comparison. If the result of comparison is negative we go to the left child, otherwise - to the right child. The recursive structure of a BST yields a recursive algorithm.
+
+Searching in a BST has O(h) worst-case runtime complexity, where h is the height of the tree. Since s binary search tree with n nodes has a minimum of O(log n) levels, it takes at least O(log n) comparisons to find a particular node. Unfortunately, a binary serch tree can degenerate to a linked list, reducing the search time to O(n). 
+
+### Deletion
+Deletion is somewhat more tricky than insertion. There are several cases to consider. A node to be deleted (let us call it as toDelete)
+
+- is not in a tree;
+- is a leaf;
+- as only one child;
+- has two children. 
+
+If toDelete is not in the tree, there is nothing to delete. If toDelete node has only one child the procedure of deletion is identical to deleting a node from a linked list - we just bypass that node being deleted 
+
 ## AVL Tree/ Height Balanced Binary Tree
 
 ## Red-Black Tree
