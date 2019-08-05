@@ -11,11 +11,12 @@ A.K.A. *hash, hash map, map, unordered map, dictionary*
 - **Single-directional lookups** - While you can look up the value for a given key in *O(1)* time, looking up the keys for a given value requires looping through the whole dataset—O(n)O(n)O(n) time.
 - **Not cache-friendly** - Many hash table implementations use linked lists, which don't put data next to each other in memory.
 
-|       |  Average   | Worst Case  |
-|space 	| O(n) | O(n)|
-|insert |	O(1) | O(n)|
-|lookup |	O(1) | O(n)|
-|delete |	O(1) | O(n)|
+| . | Average | Worst Case |
+| --- | --- | --- |
+| space 	| O(n) | O(n) |
+| insert |	O(1) | O(n) |
+| lookup |	O(1) | O(n) |
+| delete |	O(1) | O(n) |
 
 ## Basic Operations
 ### Search
