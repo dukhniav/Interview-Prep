@@ -33,4 +33,14 @@
 ## Exercises
 
 ### TODO's:
-1. Link files
+- [ ] Link files
+- [ ] Computational algorithms
+	- [ ] Dijsktra's
+	- [ ] Floyd-Warshall
+	- [ ] Traveling Salesman
+	- [ ] A*
+	- [ ] bloom filter,
+	- [ ] BFS / DFS
+	- [ ] Sort(s)
+- [ ] Implement common data-structures
+
