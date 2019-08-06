@@ -24,6 +24,7 @@ Contiguous area of memory consisiting of equal-size elements indexed by contiguo
 [Multi-dimentional (video)](https://archive.org/details/0102WhatYouShouldKnow/02_05-multidimensionalArrays.mp4)
 
 ## One-Dimentional Array
+<img src="images/1d_array.png" width="500">
 ![](https://github.com/dukhniav/Interview-Prep/blob/master/data-structures/images/1d_array.png =500x)
 - Constant time access to any element. 
 - Constant time to add/remove at the end (memory wise)
