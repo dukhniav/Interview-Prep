@@ -29,7 +29,7 @@ Notice how the values to be inserted into the array are listed inside the `{ ...
 
 ### Iterating Arrays
 Iterating through an array of `String` objects:
-```
+```java
 String[] stringArray = {"one", "two", "three"};
 
 for(String theString : stringArray) {
@@ -98,7 +98,7 @@ for(String theString : stringArray) {
 \* pop -> always refers to removing the last item.
 
 
-```
+```java
 // need to import
 import java.util.*;
 
