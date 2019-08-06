@@ -1,5 +1,7 @@
 # Interview Prep Guide
 
+[Google Tech Dev Guide](https://techdevguide.withgoogle.com/?_ga=2.205844115.1466422996.1565078662-1599821486.1565078662)
+
 ## [Data Structures](https://github.com/dukhniav/prep/blob/master/data-structures/data-structures.md#data-structures-interview)
 - Arrays
 - Linked Lists
@@ -29,3 +31,6 @@
 ## Design Patterns
 
 ## Exercises
+
+### TODO's:
+1. Link files

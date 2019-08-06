@@ -18,7 +18,25 @@ Contiguous area of memory consisiting of equal-size elements indexed by contiguo
 - The size of an array must be specified by an int value and not long or short.
 - The direct superclass of an array type is Object.
 - Every array type implements the interfaces Cloneable and java.io.Serializable.
-   
+
+
+- *Memory representation* - when `new` is used to create an array, Java reserves space in memory for it ( and initializes the values). Called *memory allocation*.
+
+### Java Array Literals
+Java contains a shortcut for instantiating array of primitive types and strings. If you already know what values to insert into the array, you can use the array literal: 
+`int[] ints2 = new int[]{ 1,2,3,4,5,6,7,8 };` === `int[] ints2 = { 1,2,3,4,5,6,7,8 };`
+Notice how the values to be inserted into the array are listed inside the `{ ... }` block. The *length* of this alsodetermines the length of the created array.
+
+### Iterating Arrays
+Iterating through an array of `String` objects:
+```
+String[] stringArray = {"one", "two", "three"};
+
+for(String theString : stringArray) {
+    System.out.println(theString);
+}
+```
+  
 [Coursera: Arrays (video)](https://www.coursera.org/learn/data-structures/lecture/OsBSF/arrays)
 [Lynda: Basic Arrays (video)](https://archive.org/details/0102WhatYouShouldKnow/02_04-basicArrays.mp4)
 [Multi-dimentional (video)](https://archive.org/details/0102WhatYouShouldKnow/02_05-multidimensionalArrays.mp4)
@@ -91,3 +109,5 @@ List<String> resizable = new ArrayList<String>();
 resizable.add("Hello World");
 ```
 
+### Common commands
+- *Length* - a.length checks length of *a[]*
