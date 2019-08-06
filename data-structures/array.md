@@ -44,10 +44,9 @@ Contiguous area of memory consisiting of equal-size elements indexed by contiguo
 - Can be created empty, or some initial value.
 
 - Adding new elements: Location?
-    - It depends:
-&nbsp;&nbsp;&nbsp;&nbsp;- `myArray.add(999);` - will be added to the end of the array, in constant time.
-&nbsp;&nbsp;&nbsp;&nbsp;- `myArray.add(999, 2);` - will be added to index 2, which means that all other indecies will need to be moved.
-   * Just because resizable arrays do the "shuffling" under the hood, doesn't mean we don't need to think about these details.
+    - `myArray.add(999);` - will be added to the end of the array, in constant time.
+    - `myArray.add(999, 2);` - will be added to index 2, which means that all other indecies will need to be moved.
+    * Just because resizable arrays do the "shuffling" under the hood, doesn't mean we don't need to think about these details.
 
 ### Appending items at end of array
 | Lang | Code |
