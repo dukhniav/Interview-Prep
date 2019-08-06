@@ -11,13 +11,13 @@ Contiguous area of memory consisiting of equal-size elements indexed by contiguo
 ## Arrays in Java 
 [GeeksForGeeks article](https://www.geeksforgeeks.org/arrays-in-java/)
 
-   - In Java all arrays are dynamically allocated.
-   - A Java array variable can also be declared like other variables with [] after the data type.
-   - The variables in the array are ordered and each have an index beginning from 0.
-   - Java array can be also be used as a static field, a local variable or a method parameter.
-   - The size of an array must be specified by an int value and not long or short.
-   - The direct superclass of an array type is Object.
-   - Every array type implements the interfaces Cloneable and java.io.Serializable.
+- In Java all arrays are dynamically allocated.
+- A Java array variable can also be declared like other variables with [] after the data type.
+- The variables in the array are ordered and each have an index beginning from 0.
+- Java array can be also be used as a static field, a local variable or a method parameter.
+- The size of an array must be specified by an int value and not long or short.
+- The direct superclass of an array type is Object.
+- Every array type implements the interfaces Cloneable and java.io.Serializable.
    
 [Coursera: Arrays (video)](https://www.coursera.org/learn/data-structures/lecture/OsBSF/arrays)
 [Lynda: Basic Arrays (video)](https://archive.org/details/0102WhatYouShouldKnow/02_04-basicArrays.mp4)
@@ -25,17 +25,20 @@ Contiguous area of memory consisiting of equal-size elements indexed by contiguo
 
 ## One-Dimentional Array
 <img src="images/1d_array.png" width="500">
+
 - Constant time access to any element. 
 - Constant time to add/remove at the end (memory wise)
 - Linear time to add/remove to an arbitrary location (memory wise)
 
 ## Two-Dimentional Array (Matrix)
 <img src="images/2d_array.png" width="500">
+
 - Array of arrays
 - Need two numbers to access.
 
 ## Multi-Dimentional Array (Jagged Array)
 <img src="images/muilti_d_array.png" width="500">
+
 - Array of arrays of arrays
    * Just about grouping information together
 
