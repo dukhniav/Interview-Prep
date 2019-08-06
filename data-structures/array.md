@@ -1,5 +1,5 @@
 # Arrays
-[](https://github.com/dukhniav/Interview-Prep/blob/master/data-structures/images/array.gif)
+![](https://github.com/dukhniav/Interview-Prep/blob/master/data-structures/images/array.gif)
 ### Definition
 Contiguous area of memory consisiting of equal-size elements indexed by contiguous integers.
 
@@ -9,7 +9,7 @@ Contiguous area of memory consisiting of equal-size elements indexed by contiguo
    * **Flexibility introduces overhead**.
 
 ## Arrays in Java 
-[Source](https://www.geeksforgeeks.org/arrays-in-java/)
+[GeeksForGeeks article](https://www.geeksforgeeks.org/arrays-in-java/)
 
    - In Java all arrays are dynamically allocated.
    - A Java array variable can also be declared like other variables with [] after the data type.
@@ -30,12 +30,12 @@ Contiguous area of memory consisiting of equal-size elements indexed by contiguo
 - Linear time to add/remove to an arbitrary location (memory wise)
 
 ## Two-Dimentional Array (Matrix)
-[]()
+![]()
 - Array of arrays
 - Need two numbers to access.
 
 ## Multi-Dimentional Array (Jagged Array)
-[](https://github.com/dukhniav/Interview-Prep/blob/master/data-structures/images/muilti_d_array.png)
+![](https://github.com/dukhniav/Interview-Prep/blob/master/data-structures/images/muilti_d_array.png)
 - Array of arrays of arrays
    * Just about grouping information together
 
