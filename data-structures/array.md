@@ -25,18 +25,17 @@ Contiguous area of memory consisiting of equal-size elements indexed by contiguo
 
 ## One-Dimentional Array
 <img src="images/1d_array.png" width="500">
-![](https://github.com/dukhniav/Interview-Prep/blob/master/data-structures/images/1d_array.png =500x)
 - Constant time access to any element. 
 - Constant time to add/remove at the end (memory wise)
 - Linear time to add/remove to an arbitrary location (memory wise)
 
 ## Two-Dimentional Array (Matrix)
-![](https://github.com/dukhniav/Interview-Prep/blob/master/data-structures/images/2d_array.png =500x)
+<img src="images/2d_array.png" width="500">
 - Array of arrays
 - Need two numbers to access.
 
 ## Multi-Dimentional Array (Jagged Array)
-![](https://github.com/dukhniav/Interview-Prep/blob/master/data-structures/images/muilti_d_array.png =500x)
+<img src="images/muilti_d_array.png" width="500">
 - Array of arrays of arrays
    * Just about grouping information together
 
