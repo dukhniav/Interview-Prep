@@ -46,6 +46,8 @@ Contiguous area of memory consisiting of equal-size elements indexed by contiguo
    * Just because resizable arrays do the "shuffling" under the hood, doesn't mean we don't need to think about these details.
 
 ### Appending items at end of array
+| Lang | Code |
+| --- | --- |
 | Java | `add(value)` |
 | Objective-C | `addObject:Value` |
 | JavaScript | `push(value)` |
@@ -62,6 +64,8 @@ Contiguous area of memory consisiting of equal-size elements indexed by contiguo
 | Python | `insert(index,value)` |
 
 ### Removing items from an array
+| Lang | Code |
+| --- | --- |
 | Java | `remove(index)` |
 | Objective-C | `removeObjectAtIndex:index` |
 | JavaScript | `pop / slice` |
