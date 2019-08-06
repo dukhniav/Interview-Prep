@@ -53,6 +53,8 @@ Contiguous area of memory consisiting of equal-size elements indexed by contiguo
 | Python | `append(value)` |
 
 ### Inserting items at specific index
+| Lang | Code |
+| --- | --- |
 | Java | `add(index,value)` |
 | Objective-C | `addObject:Value atIndex:index` |
 | JavaScript | `splice(index,items_to_remove,items_to_insert)` |
