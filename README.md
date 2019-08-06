@@ -3,14 +3,14 @@
 [Google Tech Dev Guide](https://techdevguide.withgoogle.com/?_ga=2.205844115.1466422996.1565078662-1599821486.1565078662)
 
 ## [Data Structures](https://github.com/dukhniav/prep/blob/master/data-structures/data-structures.md#data-structures-interview)
-- Arrays
-- Linked Lists
-- Stacks
-- Queues
-- Hash Table
+- [Arrays](https://github.com/dukhniav/Interview-Prep/blob/master/data-structures/array.md)
+- [Linked Lists](https://github.com/dukhniav/Interview-Prep/blob/master/data-structures/linked_list.md)
+- [Stacks](https://github.com/dukhniav/Interview-Prep/blob/master/data-structures/stacks.md)
+- [Queues](https://github.com/dukhniav/Interview-Prep/blob/master/data-structures/queue.md)
+- [Hash Tables](https://github.com/dukhniav/Interview-Prep/blob/master/data-structures/hash.md)
 - [Trees](https://github.com/dukhniav/prep/blob/master/data-structures/tree.md)
-- Heaps
-- Graphs
+- [Heaps](https://github.com/dukhniav/Interview-Prep/blob/master/data-structures/heap.md)
+- [Graphs](https://github.com/dukhniav/Interview-Prep/blob/master/data-structures/graph.md)
 
 ### The five requirements of any data structure
 - How to **Access** (one item / all items)
@@ -26,11 +26,11 @@
 
 ## Testing
 
-## [System Design](https://github.com/dukhniav/prep/blob/master/system-design/system-design.md#systems-design-interview)
+## System Design
 
 ## Design Patterns
 
-## Exercises
+## [Exercises](https://github.com/dukhniav/Interview-Prep/tree/master/exercises#exercises)
 
 ### TODO's:
 - [ ] Link files
