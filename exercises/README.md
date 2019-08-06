@@ -8,7 +8,9 @@ mapShare({"a": "aaa", "b": "bbb", "c": "ccc"}) → {"a": "aaa", "b": "aaa"}
 mapShare({"b": "xyz", "c": "ccc"}) → {"b": "xyz"}
 mapShare({"a": "aaa", "c": "meh", "d": "hi"}) → {"a": "aaa", "b": "aaa", "d": "hi"}
 
-<details><summary>Solution</summary>
+<details>
+<summary>Solution</summary>
+
 ```java
 public Map<String, String> mapShare(Map<String, String> map) {
 
@@ -27,4 +29,5 @@ public Map<String, String> mapShare(Map<String, String> map) {
   return map;
 }
 ```
+
 </details>
