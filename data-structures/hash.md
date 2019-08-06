@@ -87,7 +87,7 @@ Deletes an element from a hash table.
 `String toString( )` - Returns the string equivalent of a hash table.
 
 #### Example
-```
+```java
 import java.util.*;
 public class HashTableDemo {
 
