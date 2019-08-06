@@ -41,7 +41,8 @@ Modify and return the given map as follows: for this problem the map may or may 
 
 <details>
 <summary>Solution</summary>
-
+    
+```java
 public Map<String, String> mapAB(Map<String, String> map) {
   if (map.containsKey("a") && map.containsKey("b")){
     String temp = map.get("a") + map.get("b");
@@ -50,5 +51,6 @@ public Map<String, String> mapAB(Map<String, String> map) {
 
   return map;
 }
+```
 
 </details>
