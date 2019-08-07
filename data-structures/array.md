@@ -24,7 +24,12 @@ Contiguous area of memory consisiting of equal-size elements indexed by contiguo
 
 ### Java Array Literals
 Java contains a shortcut for instantiating array of primitive types and strings. If you already know what values to insert into the array, you can use the array literal:
-`int[] ints2 = new int[]{ 1,2,3,4,5,6,7,8 };` === `int[] ints2 = { 1,2,3,4,5,6,7,8 };`
+```java
+int[] ints2 = new int[]{ 1,2,3,4,5,6,7,8 };
+===
+int[] ints2 = { 1,2,3,4,5,6,7,8 };
+```
+
 Notice how the values to be inserted into the array are listed inside the `{ ... }` block. The *length* of this also determines the length of the created array.
 
 ### Iterating Arrays
@@ -95,6 +100,7 @@ for(String theString : stringArray) {
 | JavaScript | `pop / slice` |
 | Ruby | `pop / delete_at` |
 | Python | `pop / remove` |
+
 \* pop -> always refers to removing the last item.
 
 
