@@ -23,6 +23,14 @@
 - Big O notation
 
 ## Sorting
+- [Bubble sort](https://github.com/dukhniav/Interview-Prep/blob/master/sorting/bubble.md)
+- [Insertion sort](https://github.com/dukhniav/Interview-Prep/blob/master/sorting/insert.md)
+- Merge sort
+- Quick sort
+- Selection sort
+- Heap sort
+- Radix sort
+- Bogo sort
 
 ## Testing
 
