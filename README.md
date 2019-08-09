@@ -14,7 +14,7 @@
 
 ## Data Structures
 <details>
-<summary> <h3> Arrays </h3> </summary>
+<summary>Arrays</summary>
 ![](images/array.gif)
 #### Definition
 Contiguous area of memory consisiting of equal-size elements indexed by contiguous integers.
