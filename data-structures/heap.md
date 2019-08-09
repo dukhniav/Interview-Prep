@@ -4,32 +4,31 @@ A Heap is a **specialized tree-based data structure**. Therefore it’s composed
 
 Also, nodes can have children. **If a node doesn’t have any children, we call it leaf**.
 
-What Heap makes special are two things:
+What makes Heaps special:
 
 1. every node’s value must be **less or equal to all values stored in its children**
-2. it’s a **complete tree**, which means it has the least possible height
+2. it’s a [**complete tree**](https://github.com/dukhniav/Interview-Prep/blob/master/data-structures/tree.md#complete-binary-tree), which means it has the least possible height
 
-Because of the 1st rule, **the least element always will be in the root of the tree**.
+Because of #1, **the least element always will be in the root of the tree**.
 
 How we enforce these rules is implementation-dependent.
 
-Heaps are usually used to implement priority queues because Heap is a very efficient implementation of extracting the least (or greatest) element.
+Heaps are usually used to implement priority queues because Heaps are a very efficient implementation of extracting the least (or greatest) element.
 
 ## Heap Variants
-
 Heap has many variants, all of them differ in some implementation details.
 
-For example, what we described above is a **Min-Heap, because a parent is always less than all of its children**. Alternatively, we could have defined Max-Heap, in which case a parent is always greater than it’s children. Hence, the greatest element will be in the root node.
+For example, what is described above is a **Min-Heap**, because a parent is always less than all of its children. Alternatively, in a **Max-Heap**, the parent is always greater than it’s children. Hence, the greatest element will be in the root node.
 
 We can choose from many tree implementations. The most straightforward is a Binary Tree. **In a Binary Tree, every node can have at most two children. We call them left child and right child**.
 
-The easiest way to enforce the 2nd rule is to use a Full Binary Tree. A Full Binary Tree follows some simple rules:
+The easiest way to enforce #2 is to use a Full Binary Tree. A Full Binary Tree follows some simple rules:
 
 1.    if a node has only one child, that should be its left child
 2.    only the rightmost node on the deepest level can have exactly one child
 3.    leaves can only be on the deepest level
 
-Let’s see these rules with some examples:
+Some examples:
 ```
 1        2      3        4        5        6         7         8        9       10
 ()       ()     ()       ()       ()       ()        ()        ()       ()       ()
