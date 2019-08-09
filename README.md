@@ -13,10 +13,12 @@
 	- [Graphs](#graphs)
 
 ## Data Structures
+
 <hr>
 
 <!--- ARRAYS ------------------------------------------------------------------>
 ### Arrays
+
 ![](images/array.gif)
 #### Definition
 Contiguous area of memory consisting of equal-size elements indexed by contiguous integers.
