@@ -8,9 +8,35 @@
 	- [Stacks](#stacks)
 	- [Queues](#queues)
 	- [Hash Tables](#hash-tables)
-	- [Trees](#trees)
+		- Hashing
+- [Graphs](#graphs)
+	- Directed
+	- Undirected
+	- Breadth First Search (BFS)
+	- Depth First Search (DFS)
+- [Trees](#trees)
+	- Binary Trees
+	- Spanning Trees
+	- Minimum Spanning Trees
+	- AVL Trees
 	- [Heaps](#heaps)
-	- [Graphs](#graphs)
+- Sorting Algorithms
+	- Selection sort
+	- Insertion sort
+	- Merge sort
+	- Quick sort
+- Other Algorithms
+	- Topological sort
+	- Dijkstra's algorithm
+	- Kruskal's algorithm
+	- Prim's algorithm
+- Big-O Analysis of Algorithms
+	- Time Function: T(N)
+	- Big-O notation
+- System Design
+- Networking
+- Design Patterns
+- Testing
 
 ## Data Structures
 <hr>
