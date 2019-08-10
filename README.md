@@ -5,12 +5,35 @@
 ## Table of Contents
 
 - [Data Structures](#data-structures) - [Arrays](#arrays)
-  - [Stacks](#stacks) - [Queues](#queues) - [Linked Lists](#linked-lists) - [Hash Tables](#hash-tables) - [Hash Function](#hash-function)
-- [Graphs](#graphs) - Directed - Undirected - Breadth First Search (BFS) - Depth First Search (DFS)
-- [Trees](#trees) - Binary Trees - Spanning Trees - Minimum Spanning Trees - AVL Trees - [Heaps](#heaps)
-- Sorting Algorithms - Bubble sort - [Selection sort](#selection-sort) - [Insertion sort](#insertion-sort) - Merge sort - Quick sort
-- Other Algorithms - Topological sort - Dijkstra's algorithm - Kruskal's algorithm - Prim's algorithm
-- Big-O Analysis of Algorithms - Time Function: T(N) - Big-O notation
+  - [Stacks](#stacks)
+  - [Queues](#queues)
+  - [Linked Lists](#linked-lists)
+  - [Hash Tables](#hash-tables)
+  - [Hash Function](#hash-function)
+- [Graphs](#graphs)
+  - Directed
+  - Undirected
+  - Breadth First Search (BFS)
+  - Depth First Search (DFS)
+- [Trees](#trees)
+  - Binary Trees
+  - Spanning Trees
+  - Minimum Spanning Trees
+  - AVL Trees - [Heaps](#heaps)
+- Sorting Algorithms
+  - Bubble sort
+  - [Selection sort](#selection-sort)
+  - [Insertion sort](#insertion-sort)
+  - Merge sort
+  - Quick sort
+- Other Algorithms
+  - Topological sort
+  - Dijkstra's algorithm
+  - Kruskal's algorithm
+  - Prim's algorithm
+- Big-O Analysis of Algorithms
+  - Time Function: T(N)
+  - Big-O notation
 - System Design
 - Networking
 - Design Patterns
@@ -297,29 +320,115 @@ A.K.A. _hash, hash map, map, unordered map, dictionary_
 | lookup | O(1)    | O(n)       |
 | delete | O(1)    | O(n)       |
 
+- Although searching for an element in a hash table can take as long as searching for an element in a linked list - &Theta;(_n_) time in the **_worst case_** , in practice, hashing performs extremely well. Under reasonable assumptions, the average time to serach for an element in a hash table is &Omicron;(1).
+
+Unlike ordinary arrays, instead of using the key as an array index directly, the array index is _computed_ from the key.
+
+#### Direct address tables
+
+Direct addressing is a simple technique that works well when the amount of keys is reasonably small.
+
+Given a set of items that have integer keys in the range [1..*m*]
+
+- Use the value of the key itself to select a slot in the table to directly store the item
+- To search for an item with key _k_, just look in slot _k_
+  - If there is an item there - FOUND
+  - If the tag is NIL, it does not exist
+
+> Run time takes &Omicron;(1) time.
+
+Limitations:
+
+- Keys must be unique
+- Keys must lie in a small range
+- For storage efficiency, keys must be densein the range
+- If they’re sparse(lots of gaps between values),a lot of space (memory) is needed to store the table
+
+#### Hash tables
+
+Downside of direct addressing: if the universe _U_ of keys is large, storing a table of size |_U_| may be impractical, or even imposible, given the memory available on a typical computer. Furthermore, the set _K_ of keys _actually stored_ may be so small relative to _U_ that most of the space allocated for the table would be wasted.
+
+With direct addresing, an element with key _k_ is stored in slot _k_. With hashing, this element is stored in slot _h(k)_; that is, a [**_hash function_**](#hash-function) _h_ is used to compute the slot from the key _k_. Here, _h_ maps the universe _U_ of keys into the slots of a **_hash table_** _T_[0..*m* - 1]:
+
+> _h_ : _U_ &rarr; {0, 1, ..., _m_ - 1} ,
+
+where the size _m_ of the hash table is typically much less than |_U_|. We say that an element with key _k_ **_hashes_** to slot _h(k)_; we also say that _h(k)_ is the **_hash value_** of key _k_. The hash function reduces the range of array indices and hence the size of the array. Instead of a size of |_U_|, the array can have size _m_.
+
+There is one hitch: two keys may hash to the same slot. This is called a **_collision_**. There are effective techniques for [resolving the conflict created by collisions](#collision-resolution)
+
+##### Creating
+
 #### Hash function
 
-##### Why is it needed
+[Perfect hash function (wiki)](https://en.wikipedia.org/wiki/Perfect_hash_function)
 
-Collision resolution
+> Take a complex data structure and turn it into a simple "number" (simplistic explanation)
 
-- multiple keys map to same slot - `search, add and remove` become inefficient
+> **_Java:_** _Default hash method will return the memory id of where the element hashed is stored in memory._
 
-Chaining
+##### Java
 
-- Chain all collisions in lists attached to appropriate slot - Can handle unlimited number of collisions - Don't need prior knowledge of how many elements are contained in the collection
+- `Hashtable`
+  - One of the older collections
+  - Includes processing to stay synchronized across multiple threads
+    - Good for multi-threaded applications
+    - Performance cost
+- `HashMap`
+  - Doesn't automaticaly synchronize
+  - Faster for single threaded environments
+- `ConcurrentHashMap`
+  - Kind of a replacement for `Hashtable`
 
-Open Addressing
+##### Hashing in Custom Classes
 
-- All elements occupy the hash table itself
-- Search - Systematically examine table slots until - Either find desired element - Know that element is not in the table
-- Hash table can 'fill up'
-- Finding open spot (collision resolution) - Linear probing - Quadratic probing - Double hashing
+- Default equality behavior checks identity (memory)
+- Can be overridden to check internal state
+- If you redefine equality, redefine hashing
+  - If two objects are _equal_, they must return the same hash
+- This behavior is already provided for **_string_** objects
+  - Strings will return `equal`, if they are the equal strings and are stored in different memory locations
 
-##### Universal hashing
+* Rules
+  - Hashing should be deterministic under the same ontext
+  - Two objects that are _equal_ should return the same hash
+  - But the same hash _may_ also result from different objects
+    - Hashing Collision
 
-- no fixed hash function
-- select hash function _at random_ from a _carefully designed_ class of functions - independent of the keys - algorithm can behave differently on each execution, even for same input
+A good hash function satisfies (approximately) the assumption of simple uniform hashing: each key is equally likely to hash to any of the _m_ slots, independently of where any other key has hashed to. Unfortunately, we typically have no way to check this condition, since we rarely know the probability distribution from which the keys are drawn. Moreover, the keys might not be drawn independently.
+
+Occasionally we do know the distribution. For example, if we know that the keys are random real numbers _k_ independently and uniformly distributed in the range 0 < _k_ < 1, then the hash function:
+
+> _h(k)_ = &lfloor;_km_&rfloor;
+
+satisfies the condition of simple uniform hashing.
+
+##### Rolling Hash
+
+#### Collision resolution
+
+##### Chaining
+
+In _chaining_, we place all the elements that hash to the same slot into the same linked list. A slot (_j_) contains a pointer to the head of the list of all stored elements that hash to _j_ ; if there are no such elements, slot _j_ contains NIL.
+
+##### Open Addressing
+
+<hr>
+<!--- SET ------------------------------------------------------------------>
+
+### Sets
+
+A set is an **_unordered_** collection of objects
+
+- No index, sequence, or key
+- No duplicates allowed
+- Fast lookup - **_for checking membership, not retrieval_**
+  - Because to check, you need to have the object already
+
+Sets use hash table setup
+
+##### Java
+
+- `HashSet`
 
 <hr>
 
