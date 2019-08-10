@@ -8,7 +8,7 @@
 	- [Stacks](#stacks)
 	- [Queues](#queues)
 	- [Hash Tables](#hash-tables)
-		- [Hash Function](#hash-funciton)
+		- [Hash Function](#hash-function)
 - [Graphs](#graphs)
 	- Directed
 	- Undirected
