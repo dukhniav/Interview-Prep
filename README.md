@@ -2,467 +2,553 @@
 
 [Google Tech Dev Guide](https://techdevguide.withgoogle.com/?_ga=2.205844115.1466422996.1565078662-1599821486.1565078662)
 
+## Table of Contents
+
 - [Data Structures](#data-structures)
-	- [Arrays](#arrays)
-	- [Linked Lists](#linked-lists)
-	- [Stacks](#stacks)
-	- [Queues](#queues)
-	- [Hash Tables](#hash-tables)
-		- [Hash Function](#hash-function)
-- [Graphs](#graphs)
-	- Directed
-	- Undirected
-	- Breadth First Search (BFS)
-	- Depth First Search (DFS)
-- [Trees](#trees)
-	- Binary Trees
-	- Spanning Trees
-	- Minimum Spanning Trees
-	- AVL Trees
-	- [Heaps](#heaps)
-- Sorting Algorithms
-	- Bubble sort
-	- [Selection sort](#selection-sort)
-	- [Insertion sort](#insertion-sort)
-	- Merge sort
-	- Quick sort
+  - [Arrays](#arrays)
+  - [Stacks](#stacks)
+  - [Queues](#queues)
+  - [Linked Lists](#linked-lists)
+  - [Hash Tables](#hash-tables)
+    - [Hash Function](#hash-function)
+    - [Collision Resolution](#collision-resolution)
+  - [Sets](#sets)
+  - [Trees](#trees)
+    - [Binary Trees](#binary-tree)
+    - [Binary Search Trees](#binary-search-tree)
+    - Spanning Trees
+    - Minimum Spanning Trees
+    - AVL Trees
+  - [Heaps](#heaps)
+  - [Graphs](#graphs)
+    - Directed
+    - Undirected
+    - [Breadth First Search (BFS)](#traversals)
+    - [Depth First Search (DFS)](#traversals)
+- Java
+  - [Iteration](#iteration)
+- Recursion
+- Dynamic Programming
+- [Sorting Algorithms](#sorting)
+  - Bubble sort
+  - [Selection sort](#selection-sort)
+  - [Insertion sort](#insertion-sort)
+  - Merge sort
+  - Quick sort
 - Other Algorithms
-	- Topological sort
-	- Dijkstra's algorithm
-	- Kruskal's algorithm
-	- Prim's algorithm
 - Big-O Analysis of Algorithms
-	- Time Function: T(N)
-	- Big-O notation
+  - Time Function: T(N)
+  - Big-O notation
+- Combinatorics & Probability
 - System Design
+- Hardware
 - Networking
 - Design Patterns
 - Testing
 
 ## Data Structures
 
+### General Info
+
+> Fixed structures are Faster / Smaller
+
+###### Choose a fixed (immutable) version where possibl
+
+- If an immutable version is needed to load, consider then copying to a mutable version for lookup.
+
 <hr>
 
 <!--- ARRAYS ------------------------------------------------------------------>
+
 ### Arrays
-
-![](images/array.gif)
-#### Definition
-Contiguous area of memory consisting of equal-size elements indexed by contiguous integers.
-
-- Fixed size (immutable)
-- Specific data type
-   * Can make an array of a generic `object` data-type, however, the more specific, the better.
-   * **Flexibility introduces overhead**.
-
-#### Arrays in Java
-[GeeksForGeeks article](https://www.geeksforgeeks.org/arrays-in-java/)
-
-- In Java all arrays are dynamically allocated.
-- A Java array variable can also be declared like other variables with [] after the data type.
-- The variables in the array are ordered and each have an index beginning from 0.
-- Java array can be also be used as a static field, a local variable or a method parameter.
-- The size of an array must be specified by an int value and not long or short.
-- The direct superclass of an array type is Object.
-- Every array type implements the interfaces Cloneable and java.io.Serializable.
-
-
-- *Memory representation* - when `new` is used to create an array, Java reserves space in memory for it ( and initializes the values). Called *memory allocation*.
-
-#### Java Array Literals
-Java contains a shortcut for instantiating array of primitive types and strings. If you already know what values to insert into the array, you can use the array literal:
-```java
-int[] ints2 = new int[]{ 1,2,3,4,5,6,7,8 };
-===
-int[] ints2 = { 1,2,3,4,5,6,7,8 };
-```
-
-Notice how the values to be inserted into the array are listed inside the `{ ... }` block. The *length* of this also determines the length of the created array.
-
-#### Iterating Arrays
-Iterating through an array of `String` objects:
-```java
-String[] stringArray = {"one", "two", "three"};
-
-for(String theString : stringArray) {
-    System.out.println(theString);
-}
-```
 
 [Coursera: Arrays (video)](https://www.coursera.org/learn/data-structures/lecture/OsBSF/arrays)
 [Lynda: Basic Arrays (video)](https://archive.org/details/0102WhatYouShouldKnow/02_04-basicArrays.mp4)
 [Multi-dimentional (video)](https://archive.org/details/0102WhatYouShouldKnow/02_05-multidimensionalArrays.mp4)
 
+Contiguous area of memory consisting of equal-size elements indexed by contiguous integers.
+
+- Fixed size (immutable)
+- Specific data type
+  - Can make an array of a generic `object` data-type, however, the more specific, the better.
+  - **Flexibility introduces overhead**.
+
+#### Strengths
+
+- Direct indexing
+- Easy to create and use
+
+#### Weaknesses
+
+- Sorting and searching
+- Inserting and deleting - particularly if not at start / end
+
 #### One-Dimentional Array
-<img src="images/1d_array.png" width="500">
 
 - Constant time access to any element.
 - Constant time to add/remove at the end (memory wise)
 - Linear time to add/remove to an arbitrary location (memory wise)
 
 #### Two-Dimentional Array (Matrix)
-<img src="images/2d_array.png" width="500">
 
 - Array of arrays
 - Need two numbers to access.
 
 #### Multi-Dimentional Array (Jagged Array)
-<img src="images/muilti_d_array.png" width="500">
 
 - Array of arrays of arrays
-   * Just about grouping information together
+  - Just about grouping information together
 
 #### ArrayList
+
 - Resizable array (mutable) - Java
 - Can be created empty, or some initial value.
 
 - Adding new elements: Location?
-    - `myArray.add(999);` - will be added to the end of the array, in constant time.
-    - `myArray.add(999, 2);` - will be added to index 2, which means that all other indices will need to be moved.
-    * Just because resizable arrays do the "shuffling" under the hood, doesn't mean we don't need to think about these details.
-
-#### Appending items at end of array
-| Lang | Code |
-| --- | --- |
-| Java | `add(value)` |
-| Objective-C | `addObject:Value` |
-| JavaScript | `push(value)` |
-| Ruby | `push(value)` |
-| Python | `append(value)` |
-
-#### Inserting items at specific index
-| Lang | Code |
-| --- | --- |
-| Java | `add(index,value)` |
-| Objective-C | `addObject:Value atIndex:index` |
-| JavaScript | `splice(index,items_to_remove,items_to_insert)` |
-| Ruby | `insert(index,value)` |
-| Python | `insert(index,value)` |
-
-#### Removing items from an array
-| Lang | Code |
-| --- | --- |
-| Java | `remove(index)` |
-| Objective-C | `removeObjectAtIndex:index` |
-| JavaScript | `pop / slice` |
-| Ruby | `pop / delete_at` |
-| Python | `pop / remove` |
-
-```java
-// need to import
-import java.util.*;
-
-// create ArrayList of Strings
-List<String> resizable = new ArrayList<String>();
-
-// add to it
-resizable.add("Hello World");
-```
-
-<hr>
-
-<!--- LINKED LISTS ------------------------------------------------------------>
-### Linked Lists
-
-One disadvantage of using arrays to store data is that arrays are static structures and therefore cannot be easily extended or reduced to fit the data set. Arrays are also expensive to maintain new insertions and deletions.
-
-Linked Lists try to address some of the limitations of arrays. A linked list is a linear data structure, where each element is a separate object.
-
-<img src="images/linked_list.jpg">
-
-Each element (we will call it a node) of a list is comprising of two items:
-* the data
-* a reference to the next node
-The last node has a reference to *null*. The entry point into a linked list is called the *head* of the list. It should be noted that head is not a separate node, but **the reference to the first node**. If the list is empty then the head is a null reference.
-
-A linked list is a dynamic data structure. The number of nodes in a list is not fixed and can grow and shrink on demand. Any application which has to deal with an unknown number of objects will need to use a linked list.
-
-|  | LinkedList | Array | Dynamic Array | Balanced Tree | Random Access List | Hashed Array Tree |
-|---------------------------|--------------------------------------------------------------------|-------|----------------|---------------|--------------------|-------------------|
-| Indexing | Θ(n) | Θ(1) | Θ(1) | Θ(log n) | Θ(log n) | Θ(1) |
-| Insert/delete @ beginning | Θ(1) | N/A | Θ(n) | Θ(log n) | Θ(1) | Θ(n) |
-| Insert/delete @ end | Θ(1) when last element is known; Θ(n) when last element is unknown | N/A | Θ(1) amortized | Θ(log n) | Θ(log n) updating | Θ(1) amortized |
-| Insert/delete in middle | search time + Θ(1 | N/A | Θ(n) | Θ(log n) | Θ(log n) updating | Θ(n) |
-| Wasted space (average) | Θ(n) | 0 | Θ(n) | Θ(n) | Θ(n) | Θ(√n) |
-
-#### Disadvantages
-* It does not allow direct access to the individual elements. If you want to access a particular item then you have to start at the head and follow the references until you get to that item. (*Random access*)
-* Uses more memory compared to an array - extra 4 bytes (on 32-bit CPU) to store a reference to the next node.
-
-#### Types of Linked Lists
-##### Singly Linked List
-(described above)
-
-##### Doubly Linked List
-<img src="images/doubly_linked_list.bmp">
-Linked list which has two references, one to the *next* node, and another to the *previous* node.
-
-##### Circular Linked List
-Linked list where last node of the list points back to the first node (or the head) of the list.
-
-#### Implementing LinkedList from scratch
-Need two classes:
-* Node
-* CustomList
-
-```
-public class Node{
-  String data;
-  Node next;
-
-  public Node(String item) {
-    data = item;
-  }
-}
-
-public class CustomList {
-  Node head;
-
-  public CustomList(String item) {
-    head = new Node(item);
-  }
-
-  public void add(String item) {
-    /*
-      pseudo code: while next isn't null, walk the list
-      once you reach the end, create a new LinkNode and add the item to it.  Then
-      set the last LinkNode's next to this new LinkNode
-    */
-  }
-}
-```
+  - `myArray.add(999);` - will be added to the end of the array, in constant time.
+  - `myArray.add(999, 2);` - will be added to index 2, which means that all other indices will need to be moved.
+  * Just because resizable arrays do the "shuffling" under the hood, doesn't mean we don't need to think about these details.
 
 <hr>
 <!--- STACKS ------------------------------------------------------------------>
 
 ### Stacks
 
-A stack is a basic data structure that can be logically thought of as a linear structure represented by a real physical stack or pile, a structure where insertion and deletion of items takes place at one end called top of the stack.
+In a _stack_, the element deleted from the set is the one most recently inserted: the stack implements a **_last-in, first-out_**, or **_LIFO_** policy.
 
-At any given time, we can only access the top element of a stack.
+- The `INSERT` operation on a stack is often called `PUSH`
+- The `DELETE` operation, which doesn't an element argument, is often called `POP`
 
-This feature makes it **LIFO** data structure. LIFO stands for Last-in-first-out. Here, the element which is placed (inserted or added) last, is accessed first.
+#### Strengths
 
-![](images/stack_representation.jpg)
+- Designed for LIFO
 
-A stack is a **recursive** data structure. Here is a structural definition of a Stack:
-- a stack is either empty or
-- it consists of a top and the rest which is a stack
+#### Weaknesses
 
+- Direct access
+- Searching and sorting
 
-#### Basic Operations
+<img src="images/stack_example1.png">
 
-There are basically three operations that can be performed on stacks:
-1. inserting an item onto the stack (push)
-2. removing an item from the stack (pop)
-3. displaying the contents of the stack (peek)
+In above figure, a stack can be implemented of a at most _n_ elements with an array S[1..*n*]. The array has an attribute S._top_ that indexes the most recently inserted element. The stack consists of elements S[1..*S.top*], where S[1] is the element at the bottom of the stack and S[*S.top*] is the element at the top.
 
->Note:
-Depending on the language and implementation the data structure may share the name with an abstract data type that support all of the data structure characteristics.
+When S[*S.top*] = 0, the stack contains no elements and is _empty_. We can test to see whether the stack is empty by query operation `STACK-EMPTY`. If we attempt to pop an empty stack, we say the stack **_underflows_**, which is normally an error. If S[*S.top*] exceeds n, the **_stack overflows_**. (In our pseudocode implementation, we don’t worry about stack overflow.)
 
-#### Implementation
+#### Pseudocode
 
-In the standard library of classes, the data type stack is an adapter class, meaning that a stack is built on top of other data structures. The underlying structure for a stack could be:
--  an array,
-- a vector,
-- an ArrayList,
-- a linked list, or
-- any other collection.
+`STACK-EMPTY(S)`
 
-Regardless of the type of the underlying data structure, a Stack must implement the same functionality. This is achieved by providing a unique interface:
+1. **if** _S.top_==0
+2. &nbsp;&nbsp;&nbsp;&nbsp;**return** TRUE
+3. **else return** FALSE
+
+`PUSH(S,x)`
+
+1. _S.top_ = _S.top_ + 1
+2. _S_[*S.top*] = x
+
+`POP(S)`
+
+1. **if** STACK-EMPTY(S)
+2. &nbsp;&nbsp;&nbsp;&nbsp; **error** "underflow"
+3. **else** _S.top_ = _S.top_ - 1
+4. &nbsp;&nbsp;&nbsp;&nbsp; **return** _S_[*S.top* + 1]
+
+> Each of the three stack operations take _O_(1) time.
+
+<details>
+<summary>Generic stack: linked-list implementation</summary>
 
 ```java
-public interface StackInterface<AnyType>
-{
-   public void push(AnyType e);
+public class Stack<item>{
+  private Node first = null;
 
-   public AnyType pop();
+  private class Node {
+    Item item;
+    Node next;
+  }
 
-   public AnyType peek();
+  public boolean isEmpty() {
+    return first == null;
+  }
 
-   public boolean isEmpty();
-}
-```
+  public void push(Item item) {
+    Node oldFirst = first;
+    first = new Node();
+    first.item = item;
+    first.next = oldFirst;
+  }
 
-The following picture demonstrates the idea of implementation by *composition*.
-![](images/stack_abstraction.bmp)
-
-Another implementation requirement (in addition to the above interface) is that all stack operations must run in **constant time O(1)**. Constant time means that there is some constant k such that an operation takes k nanoseconds of computational time regardless of the stack size.
-
-
-#### Example
-```java
-import java.util.*;
-
-class StackDemo {
-  public static void main(String[]args) {
-    Stack<String> stack = new Stack<String>();
-    stack.push("A");    // Insert "A" in the stack
-    stack.push("B");    // Insert "B" in the stack
-    stack.push("C");    // Insert "C" in the stack
-    stack.push("D");    // Insert "D" in the stack
-    System.out.println(stack.peek());    // Prints the top of the stack ("D")
-    stack.pop();    // removing the top ("D")
-    stack.pop();    // removing the next top ("C")
+  public Item pop() {
+    Item item = first.item;
+    first = first.next;
+    return item;
   }
 }
+
 ```
+
+</details>
 
 <hr>
 
 <!--- QUEUES ------------------------------------------------------------------>
+
 ### Queues
 
-![alt text](images/queue_example.jpg)
+In a **_queue_**, the element deleted is always the one that has been in the set for the longest time: the queue implements a **_first-in, first-out_**, or **_FIFO_** policy
 
-Queue is an abstract data structure, somewhat similar to Stacks. Unlike stacks, a queue is open at both its ends. One end is always used to insert data (enqueue) and the other is used to remove data (dequeue). Queue follows First-In-First-Out methodology, i.e., the data item stored first will be accessed first.
+#### Strengths
 
-#### Queue Representation
-![](images/queue_diagram.jpg)
->As in stacks, a queue can also be implemented using Arrays, Linked-lists, Pointers and Structures.
+- Designed for FIFO
 
-#### Basic Operations
-Queue operations may involve initializing or defining the queue, utilizing it, and then completely erasing it from the memory.
+#### Weaknesses
 
-##### enqueue()
-− add (store) an item to the queue.
+- Direct access
+- Searching and sorting
 
-##### dequeue()
-− remove (access) an item from the queue.
+<img src="images/queue_example1.png">
 
-##### peek()
-− Gets the element at the front of the queue without removing it.
+> A queue implemented using an array _Q_[1..12]. Queue elements appear only in the lightly shaded positions. (**a**) The queue has 5 elements, in locations _Q_[7..11]. (**b**) The configuration of the queue after the calls ENQUEUE(_Q_,17), ENQUEUE(_Q_,3), and ENQUEUE(_Q_,5). (**c**) The configuration of the queue after the call DEQUEUE(_Q_) returns the key value 15 formerly at the head of the queue. The new head has key 6.
 
-##### isFull()
-− Checks if the queue is full.
+We call the `INSERT` operation on a queue `ENQUEUE`, and we call the `DELETE` operation `DEQUEUE`; like the stack operation `POP`, `DEQUEUE` takes no element argument. The **_FIFO_** property of a queue causes it to operate like a line of customers waiting to pay a cashier. The queue has a **_head_** and a **_tail_**. When an element is enqueued, it takes its place at the tail of the queue, just as a newly arriving customer takes a place at the end of the line. The element dequeued is always the one at the head of the queue, like the customer at the head of the line who has waited the longest.
 
-##### isEmpty()
-− Checks if the queue is empty.
+The figure above shows one way to implement a queue of at most _n_ - 1 elements using an array _Q_[1..*n*]. The queue has an attribute _Q.head_ that indexes, or points to, its head. The attribute _Q.tail_ indexes the next location at which a newly arriving element will be inserted into the queue. The elements in the queue reside in locations _Q.head_, _Q.head_ + 1, ..., _Q.tail_ - 1, where we “wrap around” in the sense that location 1 immediately follows location n in a circular order. When _Q.head_ = _Q.tail_, the queue is **empty**. Initially, we have _Q.head_ = _Q.tail_ = 1. If we attempt to dequeue an element from an empty queue, the queue underflows.
 
-In queue, we always dequeue (or access) data, pointed by front pointer and while enqueing (or storing) data in the queue we take help of rear pointer.
+When _Q.head_ = _Q.tail_ + 1, the queue is full, and if we attempt to enqueue an element, then the queue overflows.
+In our procedures `ENQUEUE` and `DEQUEUE`, we have omitted the error checking for underflow and overflow. The pseudocode assumes that _n_ = _Q.length_.
+
+#### Pseudocode
+
+`ENQUEUE(Q,x)`
+
+1. _Q_[*Q.tail*] = x
+2. **if** _Q.tail_ == _Q.length_
+3. &nbsp;&nbsp;&nbsp;&nbsp;_Q.tail_ = 1
+4. **else** _Q.tail_ = _Q.tail_ + 1
+
+`DEQUEUE(Q)`
+
+1. x = _Q_[*Q.head*]
+2. **if** _Q.head_ == _Q.length_
+3. &nbsp;&nbsp;&nbsp;&nbsp;_Q.head_ = 1
+4. **else** _Q.head_ = _Q.head_ + 1
+5. **return** x
+
+<hr>
+
+<!--- LINKED LISTS ------------------------------------------------------------>
+
+### Linked Lists
+
+<img src='images/linkedlist_example1.png'>
+
+> (**a**) A doubly linked list _L_ representing the dynamic set {4, 9, 16}. Each element in the list is an object with attributes for the key and pointers (shown by arrows) to the _next_ and previous objects. The next attribute of the tail and the _prev_ attribute of the head are `NIL`, indicated by a diagonal slash. The attribute _L.head_ points to the head. (**b**) Following the execution of `LIST-INSERT(L,x)`, where _x.key_ = 25, the linked list has a new object with key 25 as the new head. This new object points to the old head with key 9. (**c**) The result of the subsequent call `LIST-DELETE(L,x)`, where x points to the object with key 4.
+
+#### Strengths
+
+- Inserting and deleting elements
+- Iterating through the collection
+
+#### Weaknesses
+
+- Direct access
+- Searching and sorting
+
+A **_linked list_** is a data structure in which the objects are arranged in a linear order. Unlike an array, however, in which the linear order is determined by the array indices, the order in a linked list is determined by a pointer in each object. Linked lists provide a simple, flexible representation for dynamic sets.
+
+As shown in above figure, each element of a **_doubly linked list L_** is an object with an attribute _key_ and two other pointer attributes: _next_ and _prev_. The object may also contain other satellite data. Given an element _x_ in the list, _x.next_ points to its successor in the linked list, and _x:prev_ points to its predecessor. If _x:prev_ = NIL, the element _x_ has no predecessor and is therefore the first element, or **_head_**, of the list. If _x.next_ = NIL, the element x has no successor and is therefore the last element, or **_tail_**, of the list. An attribute _L.head_ points to the first element of the list. If _L.head_ = NIL, the list is empty.
+
+A list may have one of several forms. It may be either singly linked or doubly linked, it may be sorted or not, and it may be circular or not. If a list is **_singly linked_**, we omit the _prev_ pointer in each element. If a list is **_sorted_**, the linear order of the list corresponds to the linear order of keys stored in elements of the list; the minimum element is then the head of the list, and the maximum element is the tail. If the list is **_unsorted_**, the elements can appear in any order. In a **_circular list_**, the _prev_ pointer of the head of the list points to the tail, and the next pointer of the tail of the list points to the head. We can think of a circular list as a ring of elements. In the remainder of this section, we assume that the lists with which we are working are unsorted and doubly linked.
+
+#### Procedures
+
+##### Searching a Linked List
+
+The procedure `LIST-SEARCH(L,k)` finds the first element with key _k_ in list _L_ by a simple linear search, returning a pointer to this element. If no object with key _k_ appears in the list, then the procedure returns NIL. For the linked list in above figure (**a**), the call `LIST-SEARCH(L,4)` returns a pointer to the third element, and the call `LIST-SEARCH(L,7)` returns NIL.
+
+`LIST-SEARCH(L,k)`
+
+1. x = _L.head_
+2. **while** _x_ &#8800; NIL and _x.key_ &#8800; _k_
+3. &nbsp;&nbsp;&nbsp;&nbsp;_x_ = _x.next_
+4. **return** _x_
+
+To search a list of n objects, the `LIST-SEARCH` procedure takes &Theta;(_n_) time in the **worst case**, since it may have to search the entire list.
+
+##### Inserting into a linked list
+
+Given an element x whose _key_ attribute has already been set, the `LIST-INSERT` procedure “splices” x onto the front of the linked list, as shown above figure (**b**).
+
+`LIST-INSERT(L,x)`
+
+1. _x.next_ = _L.head_
+2. **if** _L.head_ &#8800; NIL
+3. &nbsp;&nbsp;&nbsp;&nbsp;_L.head.prev_ = _x_
+4. _L.head_ = _x_
+5. _x.prev_ = NIL
+
+(Recall that our attribute notation can cascade, so that _L.head.prev_ denotes the _prev_ attribute of the object that _L.head_ points to.) The **running time** for `LIST-INSERT` on a list of _n_ elements is &Omicron;(1).
+
+#####Deleting from a linked list
+The procedure `LIST-DELETE` removes an element _x_ from a linked list _L_. It must be given a pointer to _x_, and it then “splices” _x_ out of the list by updating pointers. If we wish to delete an element with a given key, we must first call `LIST-SEARCH` to retrieve a pointer to the element.
+
+`LIST-DELETE(L,x)`
+
+1. **if** _x.prev_ &#8800; NIL
+2. &nbsp;&nbsp;&nbsp;&nbsp;_x.prev.next_ = _x.next_
+3. **else** _L.head_ = _x.next_
+4. **if** _x.next_ &#8800; NIL
+5. &nbsp;&nbsp;&nbsp;&nbsp;_x.next.prev_ = _x.prev_
+
+Above figure shows how an element is deleted from a linked list. `LIST-DELETE` runs in &Omicron;(1) time, but if we wish to delete an element with a given key, &Theta;(_n_) time is required in the worst case because we must first call `LIST-SEARCH` to find the element.
 
 <hr>
 
 <!--- HASH ------------------------------------------------------------------>
+
 ### Hash Tables
 
-A.K.A. *hash, hash map, map, unordered map, dictionary*
+[Coursera: Phone Book Problem (video)](https://www.coursera.org/learn/data-structures/lecture/NYZZP/phone-book-problem)
 
-| . | Average | Worst Case |
-| --- | --- | --- |
-| space 	| O(n) | O(n) |
-| insert |	O(1) | O(n) |
-| lookup |	O(1) | O(n) |
-| delete |	O(1) | O(n) |
+A.K.A. _hash, hash map, map, unordered map, dictionary_
 
+#### Strengths
+
+- Speed of insertion and deletion
+- Speed of access
+
+#### Weaknesses
+
+- Some overhead (memory)
+- Retrieving in a sorted order
+- Searching for a specific value
+
+| .      | Average | Worst Case |
+| ------ | ------- | ---------- |
+| space  | O(n)    | O(n)       |
+| insert | O(1)    | O(n)       |
+| lookup | O(1)    | O(n)       |
+| delete | O(1)    | O(n)       |
+
+- Although searching for an element in a hash table can take as long as searching for an element in a linked list - &Theta;(_n_) time in the **_worst case_** , in practice, hashing performs extremely well. Under reasonable assumptions, the average time to serach for an element in a hash table is &Omicron;(1).
+
+Unlike ordinary arrays, instead of using the key as an array index directly, the array index is _computed_ from the key.
+
+#### Direct address tables
+
+Direct addressing is a simple technique that works well when the amount of keys is reasonably small.
+
+Given a set of items that have integer keys in the range [1..*m*]
+
+- Use the value of the key itself to select a slot in the table to directly store the item
+- To search for an item with key _k_, just look in slot _k_
+  - If there is an item there - FOUND
+  - If the tag is NIL, it does not exist
+
+> Run time takes &Omicron;(1) time.
+
+> Memory usage: Exponential &rarr; &Omicron;(10<sup>_k_</sup>), where _k_ is the maximum number of keys.
+
+Limitations:
+
+- Keys must be unique
+- Keys must lie in a small range
+- For storage efficiency, keys must be densein the range
+- If they’re sparse(lots of gaps between values),a lot of space (memory) is needed to store the table
+
+#### Hash tables
+
+Downside of direct addressing: if the universe _U_ of keys is large, storing a table of size |_U_| may be impractical, or even imposible, given the memory available on a typical computer. Furthermore, the set _K_ of keys _actually stored_ may be so small relative to _U_ that most of the space allocated for the table would be wasted.
+
+With direct addresing, an element with key _k_ is stored in slot _k_. With hashing, this element is stored in slot _h(k)_; that is, a [**_hash function_**](#hash-function) _h_ is used to compute the slot from the key _k_. Here, _h_ maps the universe _U_ of keys into the slots of a **_hash table_** _T_[0..*m* - 1]:
+
+> _h_ : _U_ &rarr; {0, 1, ..., _m_ - 1} ,
+
+where the size _m_ of the hash table is typically much less than |_U_|. We say that an element with key _k_ **_hashes_** to slot _h(k)_; we also say that _h(k)_ is the **_hash value_** of key _k_. The hash function reduces the range of array indices and hence the size of the array. Instead of a size of |_U_|, the array can have size _m_.
+
+There is one hitch: two keys may hash to the same slot. This is called a **_collision_**. There are effective techniques for [resolving the conflict created by collisions](#collision-resolution)
+
+##### Creating
 
 #### Hash function
-##### Why is it needed
-Collision resolution
-- multiple keys map to same slot
-	- `search, add and remove ` become inefficient
 
-Chaining
-- Chain all collisions in lists attached to appropriate slot
-	- Can handle unlimited number of collisions
-	- Don't need prior knowledge of how many elements are contained in the collection
+[Perfect hash function (wiki)](https://en.wikipedia.org/wiki/Perfect_hash_function)
 
-Open Addressing
-- All elements occupy the hash table itself
-- Search
-	- Systematically examine table slots until
-		- Either find desired element
-		- Know that element is not in the table
-- Hash table can 'fill up'
-- Finding open spot (collision resolution)
-	- Linear probing
-	- Quadratic probing
-	- Double hashing
+> Take a complex data structure and turn it into a simple "number" (simplistic explanation)
 
-##### Universal hashing
-- no fixed hash function
-- select hash function *at random* from a *carefully designed* class of functions
-	- independent of the keys
-	- algorithm can behave differently on each execution, even for same input
+> **_Java:_** _Default hash method will return the memory id of where the element hashed is stored in memory._
+
+##### Java
+
+- `Hashtable`
+  - One of the older collections
+  - Includes processing to stay synchronized across multiple threads
+    - Good for multi-threaded applications
+    - Performance cost
+- `HashMap`
+  - Doesn't automaticaly synchronize
+  - Faster for single threaded environments
+- `ConcurrentHashMap`
+  - Kind of a replacement for `Hashtable`
+
+##### Hashing in Custom Classes
+
+- Default equality behavior checks identity (memory)
+- Can be overridden to check internal state
+- If you redefine equality, redefine hashing
+  - If two objects are _equal_, they must return the same hash
+- This behavior is already provided for **_string_** objects
+  - Strings will return `equal`, if they are the equal strings and are stored in different memory locations
+
+* Rules
+  - Hashing should be deterministic under the same ontext
+  - Two objects that are _equal_ should return the same hash
+  - But the same hash _may_ also result from different objects
+    - Hashing Collision
+
+A good hash function satisfies (approximately) the assumption of simple uniform hashing: each key is equally likely to hash to any of the _m_ slots, independently of where any other key has hashed to. Unfortunately, we typically have no way to check this condition, since we rarely know the probability distribution from which the keys are drawn. Moreover, the keys might not be drawn independently.
+
+Occasionally we do know the distribution. For example, if we know that the keys are random real numbers _k_ independently and uniformly distributed in the range 0 < _k_ < 1, then the hash function:
+
+> _h(k)_ = &lfloor;_km_&rfloor;
+
+satisfies the condition of simple uniform hashing.
+
+##### Rolling Hash
+
+#### Collision resolution
+
+##### Chaining
+
+###### Parameters
+
+- _n_ - elements stored
+- _m_ - cardinality of the hash function
+- _c_ - length of the longest chain
+- &Omicron;(_n + m_) - memory used
+- &alpha; = _m/n_ - load factor
+- Operation run in &Omicron;(_c_ + 1) time
+- Want small _c_ and _m_
+
+In _chaining_, we place all the elements that hash to the same slot into the same linked list. A slot (_j_) contains a pointer to the head of the list of all stored elements that hash to _j_ ; if there are no such elements, slot _j_ contains NIL.
+
+##### Open Addressing
+
+<hr>
+<!--- SET ------------------------------------------------------------------>
+
+### Sets
+
+- [Lynda: Using sets (video)](https://archive.org/details/0102WhatYouShouldKnow/07_01-usingSets.mp4)
+
+#### Strengths
+
+- Checking if an object is in a collection
+- Avoiding duplicates
+
+#### Do not use for
+
+- Direct access
+
+A set is an **_unordered_** collection of objects.
+
+- No index, sequence, or key
+- No duplicates allowed
+- Fast lookup - **_for checking membership, not retrieval_**
+  - Because to check, you need to have the object already
+
+> Sets use hash table setup
+
+##### Java
+
+- `HashSet`
 
 <hr>
 
 <!--- TREES ------------------------------------------------------------------>
+
 ### Trees
 
 [Series: Core Trees (video)](https://www.coursera.org/learn/data-structures-optimizing-performance/lecture/ovovP/core-trees)
 
 [Series: Trees (video)](https://www.coursera.org/learn/data-structures/lecture/95qda/trees)
 
-<details>
-<summary>Examples</summary>
+[Lynda: Introduction to tree data structures (video)](https://archive.org/details/0102WhatYouShouldKnow/07_02-introductionToTreeDataStructures.mp4)
 
-##### decision trees
-<img src="images/decision_tree.png" width="400">
+> Logical data structure
 
-##### expression trees
-<img src="images/expression_tree.png" width="400">
+#### Strengths
 
-Evaluate: `45 / (3 + 6)`
+- Speed of insertion and deletion
+- Speed of access
+- Maintaining sorted order
 
-##### file systems
-<img src="images/file_system_tree.png" width="400">
+#### Weaknesses
 
-`/users/porter/`  --> hierarchical data structure - great for file systems
-
-</details>
+- Some overhead
 
 #### Terminology
-- root
-  - start at the root node
-  - only node that doesn't have any parents
-- leaf
-  - nodes without children
 
-#### What defines a tree
-- single root
-- each node can have only one parent (except root)
-- no cycles in a tree
-
-#### Binary Tree
 ![](images/binary_tree.jpg)
 
-This is the most basic basic from of tree structure. Where each node can have **at two children**.
+- _root node_
+  - Has no parent
+  - Is parent to child nodes
+  - Contain links to other nodes (child nodes)
+- _child nodes_
+  - Nodes that have a parent
+  - Each one can have own child node
+- _siblings_
+  - Child nodes that have the same parent
+- _leaf nodes_
+  - Child node with no children
 
-A binary tree is made of nodes, where each node contains a "left" pointer, a "right" pointer, and a data element. The "root" pointer points to the topmost node in the tree. The left and right pointers recursively point to smaller "subtrees" on either side. A null pointer represents a binary tree with no elements -- the empty tree. The formal recursive definition is: a binary tree is either empty (represented by a null pointer), or is made of a single node, where the left and right pointers (recursive definition ahead) each point to a **binary tree**.
+#### Binary Tree
 
-The nodes at the bottom edge of the tree have empty subtrees and are called "leaf" nodes (F, G, H, I, J) while the others are "internal" nodes (A, B, C, D, E).
+A tree structure with a maximum of **_two_** child nodes from any other node.
 
-####  Binary Search Tree Niche
-Basically, binary search trees are fast at insert and lookup. The next section presents the code for these two algorithms. On average, a binary search tree algorithm can locate a node in an N node tree in order lg(N) time (log base 2). Therefore, binary search trees are good for "dictionary" problems where the code inserts and looks up information indexed by some key. The lg(N) behavior is the average case -- it's possible for a particular tree to be much slower depending on its shape.
+- Could be one
+- Could be none (_leaf_)
 
-#### Terminology
-- The depth of a node is the number of edges from the root to the node.
-- The height of a node is the number of edges from the node to the deepest leaf.
-- The height of a tree is a height of the root.
-- A full binary tree is a binary tree in which each node has exactly zero or two children.
-- A complete binary tree is a binary tree, which is completely filled, with the possible exception of the bottom level, which is filled from left to right.
+##### Binary Search Tree
+
+- Data structure that naturaly stays sorted
+- No duplicate keys
+
+- Very efficient at retrieving data
+
+  - at every step, discarding whole subtrees of data
+
+- Child nodes
+  - left child - must be _LESS_ than parent
+  - right child - must be _MORE_ than parent
+
+> **_Java_**: `TreeMap`
 
 #### Complete binary tree
+
 A complete binary tree is very special tree, it provides the best possible ratio between the number of nodes and the height. The height h of a complete binary tree with N nodes is at most O(log N). We can easily prove this by counting nodes on each level, starting with the root, assuming that each level has the maximum number of nodes:
 
-` n = 1 + 2 + 4 + ... + 2h-1 + 2h = 2h+1 - 1 `
+`n = 1 + 2 + 4 + ... + 2h-1 + 2h = 2h+1 - 1`
 
 Solving this with respect to h, we obtain
 
-` h = O(log n) `
+`h = O(log n)`
 
 where the big-O notation hides some superfluous details.
 
-#### Traversals
-- Depth-first traversal
-  * PreOrder traversal 	- visit the parent first and then left and right children;
-  * InOrder traversal 	- visit the left child, then the parent and the right child;
-  * PostOrder traversal - visit left child, then the right child and then the parent;
-- Breadth-first traversal
-  * There is only one kind of breadth-first traversal--the level order traversal. This traversal visits nodes by levels from top to bottom and from left to right.
+##### Traversals
 
-#### Implementation
+- Depth-first traversal
+  - PreOrder traversal - visit the parent first and then left and right children;
+  - InOrder traversal - visit the left child, then the parent and the right child;
+  - PostOrder traversal - visit left child, then the right child and then the parent;
+- Breadth-first traversal
+  - There is only one kind of breadth-first traversal--the level order traversal. This traversal visits nodes by levels from top to bottom and from left to right.
+
+##### Implementation
+
 <img src="images/binary_tree_traversals.png" width="400">
 
 - each node needs:
@@ -473,17 +559,20 @@ where the big-O notation hides some superfluous details.
 - to implement a generic tree, would just have a list instead of left/right children
   - because we don't know how many leaf nodes the tree might have
 
-#### DFS
+###### DFS
+
 - preOrder Traversal
 - postOrder Traversal
 
-#### BFS
+###### BFS
+
 Visit: `A B C D E F G`
+
 - levelOrder Traversal
 - challenging - when finish with `B`, how do we know to know to `C`
   - keep two lists:
-    - *list* of nodes starting with root
-    - *visited* nodes
+    - _list_ of nodes starting with root
+    - _visited_ nodes
       - while at root `A`
       - add `A` to `list`
       - remove `A` from `list` and add `A`'s children to `list`
@@ -500,7 +589,7 @@ Visit: `A B C D E F G`
 public class BinaryTree<E> {
   TreeNode<e> root;
 
-  /*  
+  /*
       preOrder Traversal
       ------------------
       Visit current root
@@ -519,7 +608,7 @@ public class BinaryTree<E> {
     this.preOrder(root);
   }
 
-  /*  
+  /*
       postOrder Traversal
       ------------------
       Visit left subtree
@@ -539,7 +628,7 @@ public class BinaryTree<E> {
     this.postOrder(root);
   }
 
-  /*  
+  /*
       inOrder Traversal
       ------------------
       Visit left subtree
@@ -607,307 +696,153 @@ public class TreeNode<E> {
     return this.right;
   }
 }
+
 ```
 
 </details>
-
-#### Binary Search Tree
-![](images/binary_search_tree.jpg)
-
-The basic idea behind this data structure is to have such a storing repository that provides the efficient way of data sorting, searching and retriving.
-
-A BST is a binary tree where nodes are ordered in the following way:
-
-- each node contains one key (also known as data)
-- the keys in the left subtree are less then the key in its parent node, in short L < P;
-- the keys in the right subtree are greater the key in its parent node, in short P < R;
-- duplicate keys are not allowed.
-
-#### Implementation
-
-##### Insertion
-The insertion procedure is quite similar to searching. We start at the root and recursively go down the tree searching for a location in a BST to insert a new node. If the element to be inserted is already in the tree, we are done (we do not insert duplicates). The new node will always replace a NULL reference.
-
-##### Searching
-Searching in a BST always starts at the root. We compare a data stored at the root with the key we are searching for (let us call it as toSearch). If the node does not contain the key we proceed either to the left or right child depending upon comparison. If the result of comparison is negative we go to the left child, otherwise - to the right child. The recursive structure of a BST yields a recursive algorithm.
-
-Searching in a BST has O(h) worst-case runtime complexity, where h is the height of the tree. Since s binary search tree with n nodes has a minimum of O(log n) levels, it takes at least O(log n) comparisons to find a particular node. Unfortunately, a binary search tree can degenerate to a linked list, reducing the search time to O(n).
-
-##### Deletion
-Deletion is somewhat more tricky than insertion. There are several cases to consider. A node to be deleted (let us call it as toDelete)
-
-- is not in a tree;
-- is a leaf;
-- as only one child;
-- has two children.
-
-If toDelete is not in the tree, there is nothing to delete. If toDelete node has only one child the procedure of deletion is identical to deleting a node from a linked list - we just bypass that node being deleted
 
 #### AVL Tree
 
 #### Red-Black Tree
 
 <hr>
-
 <!--- HEAPS ------------------------------------------------------------------>
+
 ### Heaps
 
-A Heap is a **specialized tree-based data structure**. Therefore it’s composed of nodes. We assign the elements to nodes: every node contains exactly one element.
+- [Lynda: Using heap data structures (video)](https://archive.org/details/0102WhatYouShouldKnow/07_04-usingHeapDataStructures.mp4)
 
-Also, nodes can have children. **If a node doesn’t have any children, we call it leaf**.
+> Heaps are implemented as [Binary Trees](#binary-tree)
 
-What makes Heaps special:
-
-1. every node’s value must be **less or equal to all values stored in its children**
-2. it’s a **complete tree**, which means it has the least possible height
-
-Because of #1, **the least element always will be in the root of the tree**.
-
-How we enforce these rules is implementation-dependent.
-
-Heaps are usually used to implement priority queues because Heaps are a very efficient implementation of extracting the least (or greatest) element.
-
-#### Heap Variants
-Heap has many variants, all of them differ in some implementation details.
-
-For example, what is described above is a **Min-Heap**, because a parent is always less than all of its children. Alternatively, in a **Max-Heap**, the parent is always greater than it’s children. Hence, the greatest element will be in the root node.
-
-We can choose from many tree implementations. The most straightforward is a Binary Tree. **In a Binary Tree, every node can have at most two children. We call them left child and right child**.
-
-The easiest way to enforce #2 is to use a Full Binary Tree. A Full Binary Tree follows some simple rules:
-
-1.    if a node has only one child, that should be its left child
-2.    only the rightmost node on the deepest level can have exactly one child
-3.    leaves can only be on the deepest level
-
-Some examples:
-```
-1        2      3        4        5        6         7         8        9       10
-()       ()     ()       ()       ()       ()        ()        ()       ()       ()
-        /         \     /  \     /  \     /  \      /  \      /        /        /  \
-       ()         ()   ()  ()   ()  ()   ()  ()    ()  ()    ()       ()       ()  ()
-                               /          \       /  \      /  \     /        /  \
-                              ()          ()     ()  ()    ()  ()   ()       ()  ()
-                                                                            /
-                                                                           ()
+- Filled out:
+  - Top to bottom
+  - Left to right
 
 ```
-The trees 1, 2, 4, 5 and 7 follow the rules.
+()       ()       ()         ()        ()
+        /        /  \       /  \      /  \
+       ()       ()  ()     ()  ()    ()  ()
+                          /         /  \
+                         ()        ()  ()
 
-Tree 3 and 6 violate the 1st rule, 8 and 9 the 2nd rule, and 10 violate the 3rd rule.
-
-In this tutorial, we’ll focus on **Min-Heap with a Binary Tree** implementation.
-
-
-#### Inserting Elements
-
-We should implement all operations in a way, that keeps the Heap invariants. This way, we can **build the Heap with repeated insertions**, so we’ll focus on the single insert operation.
-
-We can insert an element with the following steps:
-
-1.    create a new leaf which is the rightmost available slot on the deepest level and store the item in that node
-2.    if the element is less than it’s parent, we swap them
-3.    continue with step 2, until the element is less than it’s parent or it becomes the new root
-
-Note, that step 2 won’t violate the Heap rule, because if we replace a node’s value with a less one, it still will be less than it’s children.
-
-Let’s see an example! We want to insert 4 into this Heap:
-```
-     2
-    / \
-   /   \
-  3     6
- / \
-5   7
 ```
 
-The first step is to create a new leaf which stores 4:
-```
-     2
-    / \
-   /   \
-  3     6
- / \   /
-5   7 4
-```
+#### Min Heap or Max Heap?
 
-Since 4 is less than it’s parent, 6, we swap them:
-```
-     2
-    / \
-   /   \
-  3     4
- / \   /
-5   7 6
-```
+##### Lowest (or highest) value at the top of the heap
 
-Now we check whether 4 is less than it’s parent or not. Since its parent is 2, we stop. The Heap is still valid, and we inserted number 4.
+- Min heap rule: a child must always be **_greater than_** its parent
+- Max heap rule: a child must always be **_less than_** its parent
 
-Let’s insert 1:
-```
-     2
-    / \
-   /   \
-  3     4
- / \   / \
-5   7 6   1
-```
+- A heap is not a fully sorted data structure
+  - Only the minimum or maximum is at the top
+  - Perfect for **_priority queues_**
 
-We have to swap 1 and 4:
-```
-     2
-    / \
-   /   \
-  3     1
- / \   / \
-5   7 6   4
-```
-
-Now we should swap 1 and 2:
-```
-     1
-    / \
-   /   \
-  3     2
- / \   / \
-5   7 6   4
-```
-Since 1 is the new root, we stop.
-
-#### Heap Implementation in Java
-
-Since we use a **Full Binary Tree, we can implement it with an array**: an element in the array will be a node in the tree. We mark every node with the array indices from left-to-right, from top-to-bottom the following way:
-```
-     0
-    / \
-   /   \
-  1     2
- / \   /
-3   4 5
-```
-
-The only thing we need is to keep track of how many elements we store in the tree. This way the index of the next element we want to insert will be the size of the array.
-
-Using this indexing, we can calculate the index of the parent and child nodes:
-
--    parent: (index – 1) / 2
--    left child: 2 * index + 1
--    right child: 2 * index + 2
-
-Since we don’t want to bother with array reallocating, we’ll simplify the implementation even more and use an *ArrayList*.
-
-A basic Binary Tree implementation looks like this:
-
-<details>
-<summary>Imlementation</summary>
-
-```java
-class BinaryTree<E> {
-
-    List<E> elements = new ArrayList<>();
-
-    void add(E e) {
-        elements.add(e);
-    }
-
-    boolean isEmpty() {
-        return elements.isEmpty();
-    }
-
-    E elementAt(int index) {
-        return elements.get(index);
-    }
-
-    int parentIndex(int index) {
-        return (index - 1) / 2;
-    }
-
-    int leftChildIndex(int index) {
-        return 2 * index + 1;
-    }
-
-    int rightChildIndex(int index) {
-        return 2 * index + 2;
-    }
-}
-```
-
->The code above only adds the new element to the end of the tree. Therefore, we need to traverse the new element up if necessary. We can do it with the following code:
-
-```java
-class Heap<E extends Comparable<E>> {
-
-    // ...
-
-    void add(E e) {
-        elements.add(e);
-        int elementIndex = elements.size() - 1;
-        while (!isRoot(elementIndex) && !isCorrectChild(elementIndex)) {
-            int parentIndex = parentIndex(elementIndex);
-            swap(elementIndex, parentIndex);
-            elementIndex = parentIndex;
-        }
-    }
-
-    boolean isRoot(int index) {
-        return index == 0;
-    }
-
-    boolean isCorrectChild(int index) {
-        return isCorrect(parentIndex(index), index);
-    }
-
-    boolean isCorrect(int parentIndex, int childIndex) {
-        if (!isValidIndex(parentIndex) || !isValidIndex(childIndex)) {
-            return true;
-        }
-
-        return elementAt(parentIndex).compareTo(elementAt(childIndex)) < 0;
-    }
-
-    boolean isValidIndex(int index) {
-        return index < elements.size();
-    }
-
-    void swap(int index1, int index2) {
-        E element1 = elementAt(index1);
-        E element2 = elementAt(index2);
-        elements.set(index1, element2);
-        elements.set(index2, element1);
-    }
-
-    // ...
-
-}
-```
-
->Note, that since we need to compare the elements, they need to implement java.util.Comparable.
-
-</details>
+> **_Java_**: `Class PriorityQueue<E>`
 
 <hr>
 <!--- GRAPH ------------------------------------------------------------------>
 
 ### Graphs
 
+[Lynda: Introduction to Graphs (video)](https://archive.org/details/0102WhatYouShouldKnow/07_05-introductionToGraphs.mp4)
+
+Unlike Linked Lists and Trees, where:
+
+- A node can only point to another node
+- A child can only have one parent
+- Each parent only has specific children
+- Siblings are not linked together
+
+A graph is a collection of nodes where:
+
+- any node can link to any other node
+- a node can link to mulitple other nodes, what ever is needed
+
+#### Terminology
+
+- Nodes - **_vertices_**
+- Links between nodes - **_edges_**
+- Directed / Undirected graphs
+- Weighted graphs
+  - Adding weights to edges to denote "importance"
+
+#### Graph implementation
+
+Situation specific
+
+- Linked list - single directed graph
+- Trees
+- Heaps
+
+<hr>
+<!--- Java ----------------------------------------------------------------->
+
+## Java
+
+### Iterators
+
+- What is an Iterable?
+  - Has a method that returns an `Iterator`
+
+```java
+public interface Iterable<item> {
+  Iterator<item> iterator();
+}
+```
+
+- What is an Iterator?
+  - Has methods `hasNext()` and `next()`.
+
+```java
+public interface Iterable<item> {
+  boolean hasNext();
+  Item next();
+}
+```
+
+- Why make data structures Iterable?
+  - Java supports elegant client code.
+    > "foreach" statement (shorthand):
+
+```java
+for (String s : stack)
+  StdOut.println(s);
+```
+
+> equivalent code (longhand):
+
+```java
+Iterator<String> i = stack.iterator();
+while (i.hasNext()) {
+  String s = i.next();
+  StdOut.println(s);
+}
+```
+
 <hr>
 <!--- SORTING ----------------------------------------------------------------->
 
 ## Sorting
 
+General information:
+
+- Which algorithms are best for sorting what data structures?
+
+### Bubble Sort
+
 ### Selection Sort
+
 [An Algorithmic Analysis of Selection Sort: Best, Worst, & Average Case (video)](https://www.youtube.com/watch?v=TNRRoYCzlFw)
 
 #### How it works
 
 > Consider a pile of numbers to be sorted
 
-- Steps:
-	- Scan input pile (I) and select the smallest number.
-	- Swap minimum element with value in first position
-	- Swap next minimum element with value in second position
+- Steps: - Scan input pile (I) and select the smallest number. - Swap minimum element with value in first position - Swap next minimum element with value in second position
 
 #### Pseudocode
+
 ```
 for i = n down to 2 do
 	k <- 1									// front of array
@@ -929,13 +864,58 @@ end for
 
 > Consider a pile of numbers to be sorted
 
-- Make two arbitrary piles
-	- I: Input pile
-	- O: Output pile
-- Steps:
-	1. take the first item from input pile (I) and place into output pile (O)
-	2. take next item from I
-		- if lower than the first item
-- When to stop:
-	- I is empty
-	- O has all numbers in order
+- Make two arbitrary piles - I: Input pile - O: Output pile
+- Steps: 1. take the first item from input pile (I) and place into output pile (O) 2. take next item from I - if lower than the first item
+- When to stop: - I is empty - O has all numbers in order
+
+### Merge Sort
+
+### Quick Sort
+
+### Radix Sort
+
+## Other Algorithms
+
+### Topological sort
+
+### Dijkstra's algorithm
+
+### Kruskal's algorithm
+
+### Prim's algorithm
+
+## Big-O Analysis of Algorithms
+
+### Time Function: T(N)
+
+### Big-O notation
+
+## Combinatorics & Probability
+
+## System Design
+
+### Scalability
+
+## Hardware
+
+## Networking
+
+### UDP
+
+### TCP/IP
+
+### HTTP
+
+### SSL
+
+## Design Patterns
+
+## Testing
+
+### Unit test
+
+### Mock objects
+
+### Integration testing
+
+### Dependency injection
