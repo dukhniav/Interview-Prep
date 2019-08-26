@@ -8,34 +8,23 @@
   - [Arrays](#arrays)
   - [Stacks](#stacks)
   - [Queues](#queues)
+  - [Priority Queues](#priority-queues)
   - [Linked Lists](#linked-lists)
   - [Hash Tables](#hash-tables)
-    - [Hash Function](#hash-function)
-    - [Collision Resolution](#collision-resolution)
   - [Sets](#sets)
   - [Trees](#trees)
-    - [Binary Trees](#binary-tree)
-    - [Binary Search Trees](#binary-search-tree)
-    - Spanning Trees
-    - Minimum Spanning Trees
-    - AVL Trees
   - [Heaps](#heaps)
   - [Graphs](#graphs)
-    - Directed
-    - Undirected
-    - [Breadth First Search (BFS)](#traversals)
-    - [Depth First Search (DFS)](#traversals)
-- Java
-  - [Iteration](#iteration)
 - Recursion
 - Dynamic Programming
 - [Sorting Algorithms](#sorting)
   - Bubble sort
   - [Selection sort](#selection-sort)
   - [Insertion sort](#insertion-sort)
-  - Merge sort
-  - Quick sort
+  - [Merge sort](#merge-sort)
+  - [Quick sort](#quick-sort)
 - Other Algorithms
+- [Complexity of sorting](#complexity-of-sorting)
 - Big-O Analysis of Algorithms
   - Time Function: T(N)
   - Big-O notation
@@ -44,7 +33,8 @@
 - Hardware
 - Networking
 - Design Patterns
-- Testing
+- [Testing](#testing)
+- Java
 
 ## Data Structures
 
@@ -128,67 +118,14 @@ In a _stack_, the element deleted from the set is the one most recently inserted
 - Direct access
 - Searching and sorting
 
-<img src="images/stack_example1.png">
+#### Time Complexity:
 
-In above figure, a stack can be implemented of a at most _n_ elements with an array S[1..*n*]. The array has an attribute S._top_ that indexes the most recently inserted element. The stack consists of elements S[1..*S.top*], where S[1] is the element at the bottom of the stack and S[*S.top*] is the element at the top.
+- Access: `O(n)`
+- Search: `O(n)`
+- Insert: `O(1)`
+- Remove: `O(1)`
 
-When S[*S.top*] = 0, the stack contains no elements and is _empty_. We can test to see whether the stack is empty by query operation `STACK-EMPTY`. If we attempt to pop an empty stack, we say the stack **_underflows_**, which is normally an error. If S[*S.top*] exceeds n, the **_stack overflows_**. (In our pseudocode implementation, we don’t worry about stack overflow.)
-
-#### Pseudocode
-
-`STACK-EMPTY(S)`
-
-1. **if** _S.top_==0
-2. &nbsp;&nbsp;&nbsp;&nbsp;**return** TRUE
-3. **else return** FALSE
-
-`PUSH(S,x)`
-
-1. _S.top_ = _S.top_ + 1
-2. _S_[*S.top*] = x
-
-`POP(S)`
-
-1. **if** STACK-EMPTY(S)
-2. &nbsp;&nbsp;&nbsp;&nbsp; **error** "underflow"
-3. **else** _S.top_ = _S.top_ - 1
-4. &nbsp;&nbsp;&nbsp;&nbsp; **return** _S_[*S.top* + 1]
-
-> Each of the three stack operations take _O_(1) time.
-
-<details>
-<summary>Generic stack: linked-list implementation</summary>
-
-```java
-public class Stack<item>{
-  private Node first = null;
-
-  private class Node {
-    Item item;
-    Node next;
-  }
-
-  public boolean isEmpty() {
-    return first == null;
-  }
-
-  public void push(Item item) {
-    Node oldFirst = first;
-    first = new Node();
-    first.item = item;
-    first.next = oldFirst;
-  }
-
-  public Item pop() {
-    Item item = first.item;
-    first = first.next;
-    return item;
-  }
-}
-
-```
-
-</details>
+[Implementation](/implementation/stack.md#Stack-implementation)
 
 <hr>
 
@@ -213,27 +150,24 @@ In a **_queue_**, the element deleted is always the one that has been in the set
 
 We call the `INSERT` operation on a queue `ENQUEUE`, and we call the `DELETE` operation `DEQUEUE`; like the stack operation `POP`, `DEQUEUE` takes no element argument. The **_FIFO_** property of a queue causes it to operate like a line of customers waiting to pay a cashier. The queue has a **_head_** and a **_tail_**. When an element is enqueued, it takes its place at the tail of the queue, just as a newly arriving customer takes a place at the end of the line. The element dequeued is always the one at the head of the queue, like the customer at the head of the line who has waited the longest.
 
-The figure above shows one way to implement a queue of at most _n_ - 1 elements using an array _Q_[1..*n*]. The queue has an attribute _Q.head_ that indexes, or points to, its head. The attribute _Q.tail_ indexes the next location at which a newly arriving element will be inserted into the queue. The elements in the queue reside in locations _Q.head_, _Q.head_ + 1, ..., _Q.tail_ - 1, where we “wrap around” in the sense that location 1 immediately follows location n in a circular order. When _Q.head_ = _Q.tail_, the queue is **empty**. Initially, we have _Q.head_ = _Q.tail_ = 1. If we attempt to dequeue an element from an empty queue, the queue underflows.
+[Implementation](/implementation/queue.md#queue-implementation)
 
-When _Q.head_ = _Q.tail_ + 1, the queue is full, and if we attempt to enqueue an element, then the queue overflows.
-In our procedures `ENQUEUE` and `DEQUEUE`, we have omitted the error checking for underflow and overflow. The pseudocode assumes that _n_ = _Q.length_.
+<hr>
 
-#### Pseudocode
+<!--- Priority Queues ------------------------------------------------------------>
 
-`ENQUEUE(Q,x)`
+### Priority Queues
 
-1. _Q_[*Q.tail*] = x
-2. **if** _Q.tail_ == _Q.length_
-3. &nbsp;&nbsp;&nbsp;&nbsp;_Q.tail_ = 1
-4. **else** _Q.tail_ = _Q.tail_ + 1
+Generalizes: stack, queue, randomized queue
 
-`DEQUEUE(Q)`
+| Implementation  | Time      | Space |
+| --------------- | --------- | ----- |
+| sort            | `N log N` | `N`   |
+| elementary PQ   | `M N`     | `M`   |
+| **binary heap** | `N log M` | `M`   |
+| best in theory  | `N`       | `M`   |
 
-1. x = _Q_[*Q.head*]
-2. **if** _Q.head_ == _Q.length_
-3. &nbsp;&nbsp;&nbsp;&nbsp;_Q.head_ = 1
-4. **else** _Q.head_ = _Q.head_ + 1
-5. **return** x
+[implementation](/implementation/priority.md#priority-queue)
 
 <hr>
 
@@ -245,63 +179,40 @@ In our procedures `ENQUEUE` and `DEQUEUE`, we have omitted the error checking fo
 
 > (**a**) A doubly linked list _L_ representing the dynamic set {4, 9, 16}. Each element in the list is an object with attributes for the key and pointers (shown by arrows) to the _next_ and previous objects. The next attribute of the tail and the _prev_ attribute of the head are `NIL`, indicated by a diagonal slash. The attribute _L.head_ points to the head. (**b**) Following the execution of `LIST-INSERT(L,x)`, where _x.key_ = 25, the linked list has a new object with key 25 as the new head. This new object points to the old head with key 9. (**c**) The result of the subsequent call `LIST-DELETE(L,x)`, where x points to the object with key 4.
 
-#### Strengths
+##### Strengths
 
 - Inserting and deleting elements
 - Iterating through the collection
 
-#### Weaknesses
+##### Weaknesses
 
 - Direct access
 - Searching and sorting
 
+##### Time Complexity:
+
+- Access: `O(n)`
+- Search: `O(n)`
+- Insert: `O(1)`
+- Remove: `O(1)`
+
+A _Linked List_ is a linear collection of data elements, called nodes, each pointing to the next node by means of a pointer. It is a data structure consisting of a group of nodes which together represent a sequence.
+
 A **_linked list_** is a data structure in which the objects are arranged in a linear order. Unlike an array, however, in which the linear order is determined by the array indices, the order in a linked list is determined by a pointer in each object. Linked lists provide a simple, flexible representation for dynamic sets.
+
+#### Doubly-linked list
+
+**Doubly-linked list**: linked list in which each node has two pointers, p and n, such that p points to the previous node and n points to the next node; the last node's n pointer points to null
 
 As shown in above figure, each element of a **_doubly linked list L_** is an object with an attribute _key_ and two other pointer attributes: _next_ and _prev_. The object may also contain other satellite data. Given an element _x_ in the list, _x.next_ points to its successor in the linked list, and _x:prev_ points to its predecessor. If _x:prev_ = NIL, the element _x_ has no predecessor and is therefore the first element, or **_head_**, of the list. If _x.next_ = NIL, the element x has no successor and is therefore the last element, or **_tail_**, of the list. An attribute _L.head_ points to the first element of the list. If _L.head_ = NIL, the list is empty.
 
+#### Circular-linked list
+
+**Circular-linked list**: linked list in which each node points to the next node and the last node points back to the first node
+
 A list may have one of several forms. It may be either singly linked or doubly linked, it may be sorted or not, and it may be circular or not. If a list is **_singly linked_**, we omit the _prev_ pointer in each element. If a list is **_sorted_**, the linear order of the list corresponds to the linear order of keys stored in elements of the list; the minimum element is then the head of the list, and the maximum element is the tail. If the list is **_unsorted_**, the elements can appear in any order. In a **_circular list_**, the _prev_ pointer of the head of the list points to the tail, and the next pointer of the tail of the list points to the head. We can think of a circular list as a ring of elements. In the remainder of this section, we assume that the lists with which we are working are unsorted and doubly linked.
 
-#### Procedures
-
-##### Searching a Linked List
-
-The procedure `LIST-SEARCH(L,k)` finds the first element with key _k_ in list _L_ by a simple linear search, returning a pointer to this element. If no object with key _k_ appears in the list, then the procedure returns NIL. For the linked list in above figure (**a**), the call `LIST-SEARCH(L,4)` returns a pointer to the third element, and the call `LIST-SEARCH(L,7)` returns NIL.
-
-`LIST-SEARCH(L,k)`
-
-1. x = _L.head_
-2. **while** _x_ &#8800; NIL and _x.key_ &#8800; _k_
-3. &nbsp;&nbsp;&nbsp;&nbsp;_x_ = _x.next_
-4. **return** _x_
-
-To search a list of n objects, the `LIST-SEARCH` procedure takes &Theta;(_n_) time in the **worst case**, since it may have to search the entire list.
-
-##### Inserting into a linked list
-
-Given an element x whose _key_ attribute has already been set, the `LIST-INSERT` procedure “splices” x onto the front of the linked list, as shown above figure (**b**).
-
-`LIST-INSERT(L,x)`
-
-1. _x.next_ = _L.head_
-2. **if** _L.head_ &#8800; NIL
-3. &nbsp;&nbsp;&nbsp;&nbsp;_L.head.prev_ = _x_
-4. _L.head_ = _x_
-5. _x.prev_ = NIL
-
-(Recall that our attribute notation can cascade, so that _L.head.prev_ denotes the _prev_ attribute of the object that _L.head_ points to.) The **running time** for `LIST-INSERT` on a list of _n_ elements is &Omicron;(1).
-
-#####Deleting from a linked list
-The procedure `LIST-DELETE` removes an element _x_ from a linked list _L_. It must be given a pointer to _x_, and it then “splices” _x_ out of the list by updating pointers. If we wish to delete an element with a given key, we must first call `LIST-SEARCH` to retrieve a pointer to the element.
-
-`LIST-DELETE(L,x)`
-
-1. **if** _x.prev_ &#8800; NIL
-2. &nbsp;&nbsp;&nbsp;&nbsp;_x.prev.next_ = _x.next_
-3. **else** _L.head_ = _x.next_
-4. **if** _x.next_ &#8800; NIL
-5. &nbsp;&nbsp;&nbsp;&nbsp;_x.next.prev_ = _x.prev_
-
-Above figure shows how an element is deleted from a linked list. `LIST-DELETE` runs in &Omicron;(1) time, but if we wish to delete an element with a given key, &Theta;(_n_) time is required in the worst case because we must first call `LIST-SEARCH` to find the element.
+[Implementation](/implementation/linkedlist.md)
 
 <hr>
 
@@ -478,6 +389,10 @@ A set is an **_unordered_** collection of objects.
 
 > Logical data structure
 
+- A **_tree_** is an undirected, connnected, acyclic graph
+
+> [Implementation](/implementation/tree.md#tree-implementation)
+
 #### Strengths
 
 - Speed of insertion and deletion
@@ -506,37 +421,36 @@ A set is an **_unordered_** collection of objects.
 
 #### Binary Tree
 
-A tree structure with a maximum of **_two_** child nodes from any other node.
-
-- Could be one
-- Could be none (_leaf_)
+- A _Binary Tree_ is a tree data structure in which each node has at most two children, which are referred to as the _left child_ and _right child_
+- **_Full Tree_**: a tree in which every node has either 0 or 2 children
+- **_Perfect Binary Tree_**: a binary tree in which all interior nodes have two children and all leave have the same depth
+- **_Complete Tree_**: a binary tree in which every level _except possibly the last_ is full and all nodes in the last level are as far left as possible
 
 ##### Binary Search Tree
 
 - Data structure that naturaly stays sorted
 - No duplicate keys
-
 - Very efficient at retrieving data
-
   - at every step, discarding whole subtrees of data
-
 - Child nodes
   - left child - must be _LESS_ than parent
   - right child - must be _MORE_ than parent
+
+###### Time Complexity:
+
+- Access: `O(log(n))`
+- Search: `O(log(n))`
+- Insert: `O(log(n))`
+- Remove: `O(log(n))`
 
 > **_Java_**: `TreeMap`
 
 #### Complete binary tree
 
-A complete binary tree is very special tree, it provides the best possible ratio between the number of nodes and the height. The height h of a complete binary tree with N nodes is at most O(log N). We can easily prove this by counting nodes on each level, starting with the root, assuming that each level has the maximum number of nodes:
+- Complete tree: Perfectly balanced, expect for bottom level
 
-`n = 1 + 2 + 4 + ... + 2h-1 + 2h = 2h+1 - 1`
-
-Solving this with respect to h, we obtain
-
-`h = O(log n)`
-
-where the big-O notation hides some superfluous details.
+- Property: Height of complete tree with _N_ nodes is &lfloor;lg _N_&rfloor;
+- _Proof_: Height only increases when _N_ is a power of 2
 
 ##### Traversals
 
@@ -546,160 +460,6 @@ where the big-O notation hides some superfluous details.
   - PostOrder traversal - visit left child, then the right child and then the parent;
 - Breadth-first traversal
   - There is only one kind of breadth-first traversal--the level order traversal. This traversal visits nodes by levels from top to bottom and from left to right.
-
-##### Implementation
-
-<img src="images/binary_tree_traversals.png" width="400">
-
-- each node needs:
-  1. a value
-  2. a parent
-  3. a left child
-  4. a right child
-- to implement a generic tree, would just have a list instead of left/right children
-  - because we don't know how many leaf nodes the tree might have
-
-###### DFS
-
-- preOrder Traversal
-- postOrder Traversal
-
-###### BFS
-
-Visit: `A B C D E F G`
-
-- levelOrder Traversal
-- challenging - when finish with `B`, how do we know to know to `C`
-  - keep two lists:
-    - _list_ of nodes starting with root
-    - _visited_ nodes
-      - while at root `A`
-      - add `A` to `list`
-      - remove `A` from `list` and add `A`'s children to `list`
-        - add `A` to `visited`
-      - remove next node from `list` --> `B` and add its children to `list`
-        - remove `B` from `list` and add it to `visited`
-      - etc...
-  - end up using tree like a `Queue`
-
-<details>
-<summary>Implementation</summary>
-
-```java
-public class BinaryTree<E> {
-  TreeNode<e> root;
-
-  /*
-      preOrder Traversal
-      ------------------
-      Visit current root
-      Visit left subtree
-      Visit right subtree
-  */
-  private void preOrder(TreeNode<E> node){
-    if(node != null){
-      node.visit();
-      preOrder(node.getLeftChild());
-      preOrder(node.getRightChild());
-    }
-  }
-  // runs preOrder on root
-  public void preOrder() {
-    this.preOrder(root);
-  }
-
-  /*
-      postOrder Traversal
-      ------------------
-      Visit left subtree
-      Visit right subtree
-      Visit current root
-  */
-  private void postOrder(TreeNode<E> node){
-    if(node != null){
-      preOrder(node.getLeftChild());
-      preOrder(node.getRightChild());
-      node.visit();
-    }
-  }
-
-  // run postOrder on root
-  public void postOrder() {
-    this.postOrder(root);
-  }
-
-  /*
-      inOrder Traversal
-      ------------------
-      Visit left subtree
-      Visit current root
-      Visit right subtree
-  */
-  private void inOrder(TreeNode<E> node){
-    if(node != null){
-      preOrder(node.getLeftChild());
-      node.visit();
-      preOrder(node.getRightChild());
-    }
-  }
-
-  // run inOrder on root
-  public void inOrder() {
-    this.inOrder(root);
-  }
-
-  /*
-    levelOrder Traversal (BFS)
-    --------------------------
-    Using LinkedLists, because LinkedLists implement Heap
-  */
-  public void levelOrder() {
-    Queue< TreeNode<E> > q = new LinkedList < TreeNode<E> > ();
-    q.add(root);
-    while(!q.isEmpty()) {
-      TreeNode<E> curr = q.remove();
-      if(curr != null) {
-        // could check for null children before adding
-        curr.visit();
-        q.add(curr.getLeftChild());
-        q.add(curr.getRightChild());
-      }
-    }
-  }
-}
-
-public class TreeNode<E> {
-  private E value;
-  private TreeNode<E> parent;
-  private TreeNode<E> left;
-  private TreeNode<E> right;
-
-  // Constructor
-  public TreeNode(E val, TreeNode<E> par) {
-    this.value = val;
-    this.parent = par;
-    this.left = null;
-    this.right = null;
-  }
-
-  // Setter for left child
-  public TreeNode<E> addLeftChild(E val) {
-    // 'this' is passed as the parent
-    this.left = new TreeNode<E>(val, this);
-    return this.left;
-  }
-
-  // Setter for right child
-  public TreeNode<E> addRightChild(E val) {
-    // 'this' is passed as the parent
-    this.right = new TreeNode<E>(val, this);
-    return this.right;
-  }
-}
-
-```
-
-</details>
 
 #### AVL Tree
 
@@ -734,11 +494,15 @@ public class TreeNode<E> {
 - Min heap rule: a child must always be **_greater than_** its parent
 - Max heap rule: a child must always be **_less than_** its parent
 
-- A heap is not a fully sorted data structure
+* A heap is not a fully sorted data structure
   - Only the minimum or maximum is at the top
   - Perfect for **_priority queues_**
 
 > **_Java_**: `Class PriorityQueue<E>`
+
+#### Binary Heap
+
+Array representation of a heap-ordered [complete binary tree](#complete-binary-tree).
 
 <hr>
 <!--- GRAPH ------------------------------------------------------------------>
@@ -776,64 +540,38 @@ Situation specific
 - Heaps
 
 <hr>
-<!--- Java ----------------------------------------------------------------->
 
-## Java
-
-### Iterators
-
-- What is an Iterable?
-  - Has a method that returns an `Iterator`
-
-```java
-public interface Iterable<item> {
-  Iterator<item> iterator();
-}
-```
-
-- What is an Iterator?
-  - Has methods `hasNext()` and `next()`.
-
-```java
-public interface Iterable<item> {
-  boolean hasNext();
-  Item next();
-}
-```
-
-- Why make data structures Iterable?
-  - Java supports elegant client code.
-    > "foreach" statement (shorthand):
-
-```java
-for (String s : stack)
-  StdOut.println(s);
-```
-
-> equivalent code (longhand):
-
-```java
-Iterator<String> i = stack.iterator();
-while (i.hasNext()) {
-  String s = i.next();
-  StdOut.println(s);
-}
-```
-
-<hr>
 <!--- SORTING ----------------------------------------------------------------->
 
 ## Sorting
 
-General information:
+### General information:
 
 - Which algorithms are best for sorting what data structures?
+
+#### Stability
+
+> A typical application: First, sort by name; **_then_** sort by section
+
+A **_Stable_** sort preserves the relative order of items with equal keys.
+
+- What sorting algorithms are stable:
+  - Merge sort
+  - Insertion sort
+  - However, it could come down to code
+    - `less than` vs `less then or equal to`
 
 ### Bubble Sort
 
 ### Selection Sort
 
+- [Implementation](/implementation/selection.md#selection-sort)
+
 [An Algorithmic Analysis of Selection Sort: Best, Worst, & Average Case (video)](https://www.youtube.com/watch?v=TNRRoYCzlFw)
+
+#### Complexity
+
+- Not stable
 
 #### How it works
 
@@ -841,24 +579,12 @@ General information:
 
 - Steps: - Scan input pile (I) and select the smallest number. - Swap minimum element with value in first position - Swap next minimum element with value in second position
 
-#### Pseudocode
-
-```
-for i = n down to 2 do
-	k <- 1									// front of array
-	for j = 2 to i do				// next position after front
-		if A[j] > A[k] then 	// comparison
-			k <- j
-		end if
-	end for
-	A[k] <-> A[i] 					// swap
-end for
-```
-
 <hr>
 <!--- Insertion sort ---------------------------------------------------------->
 
 ### Insertion sort
+
+- Stable
 
 #### How it works
 
@@ -868,54 +594,374 @@ end for
 - Steps: 1. take the first item from input pile (I) and place into output pile (O) 2. take next item from I - if lower than the first item
 - When to stop: - I is empty - O has all numbers in order
 
-### Merge Sort
+<hr>
 
-### Quick Sort
+### Merge sort
+
+- [Coursera: Mergesort (video)](https://www.coursera.org/learn/algorithms-part1/lecture/ARWDq/mergesort)
+- [Baeldung: Mergesort](https://www.baeldung.com/java-merge-sort)
+
+- [Implementation](/implementation/merge.md#merge-sort-implementation)
+
+_Mergesort_ is a [divide-and-conquer](#divide-and-conquer) algorithm. It continuously divides an array into two halves, recurses on both the left subarray and right subarray and then merges the two sorted halves
+
+- Stable: `Yes`
+
+* Basic plan:
+  1. Divide array into two halves.
+  2. _Recursively_ sort each half.
+  3. Merge two halves.
+
+_Goal_ :
+
+#### Complexity
+
+- Propose: Mersort uses at most _N_ lg _N_ compares and 6 _N_ lg _N_ array accesses to sort any array of size _N_.
+
+<hr>
+- Time Complexity:
+
+- Best Case: `O(nlog(n))`
+- Worst Case: `O(nlog(n))`
+- Average Case: `O(nlog(n))`
+
+As merge sort is a recursive algorithm, the time complexity can be expressed as the following recursive relation:
+
+> `T(n) = 2T(n/2) + O(n)`
+
+2T(n/2) corresponds to the time required to sort the sub-arrays and O(n) time to merge the entire array.
+
+When solved, the time complexity will come to O(nLogn).
+
+This is true for the worst, average and best case since it will always divide the array into two and then merge.
+
+The space complexity of the algorithm is O(n) as we’re creating temporary arrays in every recursive call.
+
+<hr>
+
+### Quick sort
+
+- Stable: `No`
+- Time complexity:
+  - Best Case: `O(nlog(n))`
+  - Average Case: `O(nlog(n))`
+  - Worst Case: `O(n^2)`
+
+> Quicksort is a sorting algorithm, which, like merge-sort, is leveraging the divide-and-conquer principle. It has an average O(n log n) complexity and it’s one of the most used sorting algorithms, especially for big data volumes.
+
+It’s **important to remember that Quicksort isn’t a stable algorithm.** A stable sorting algorithm is an algorithm where the elements with the same values appear in the same order in the sorted output as they appear in the input list.
+
+The input list is divided into two sub-lists by an element called pivot; one sub-list with elements less than the pivot and another one with elements greater than the pivot. This process repeats for each sub-list.
+
+Finally, all sorted sub-lists merge to form the final output.
+
+#### Algorithm steps
+
+1. We choose an element from the list, called the pivot. We’ll use it to divide the list into two sub-lists.
+2. We reorder all the elements around the pivot – the ones with smaller value are placed before it, and all the elements greater than the pivot after it. After this step, the pivot is in its final position. This is the important partition step.
+3. We apply the above steps recursively to both sub-lists on the left and right of the pivot.
+
+As we can see, **quicksort is naturally a recursive algorithm, like every divide and conquer approach**.
+
+Let’s take a simple example in order to better understand this algorithm.
+
+```java
+Arr[] = {5, 9, 4, 6, 5, 3}
+```
+
+1. Let’s suppose we pick 5 as the pivot for simplicity
+2. We’ll first put all elements less than 5 in the first position of the array: {3, 4, 5, 6, 5, 9}
+3. We’ll then repeat it for the left sub-array {3,4}, taking 3 as the pivot
+4. There are no elements less than 3
+5. We apply quicksort on the sub-array in the right of the pivot, i.e. {4}
+6. This sub-array consists of only one sorted element
+7. We continue with the right part of the original array, {6, 5, 9} until we get the final ordered array
+
+#### Choosing the Optimal Pivot
+
+The crucial point in QuickSort is to choose the best pivot. The middle element is, of course, the best, as it would divide the list into two equal sub-lists.
+
+But finding the middle element from an unordered list is difficult and time-consuming, that is why we take as pivot the first element, the last element, the median or any other random element.
+
+#### Algorithm Analysis
+
+##### Time Complexity
+
+In the best case, the algorithm will divide the list into two equal size sub-lists. So, the first iteration of the full n-sized list needs O(n). Sorting the remaining two sub-lists with n/2 elements takes 2\*O(n/2) each. As a result, the QuickSort algorithm has the complexity of O(n log n).
+
+In the worst case, the algorithm will select only one element in each iteration, so O(n) + O(n-1) + … + O(1), which is equal to O(n2).
+
+On the average QuickSort has O(n log n) complexity, making it suitable for big data volumes.
+
+##### QuickSort vs MergeSort
+
+Let’s discuss in which cases we should choose QuickSort over MergeSort.
+
+Although both Quicksort and Mergesort have an average time complexity of O(n log n), Quicksort is the preferred algorithm, as it has an O(log(n)) space complexity. Mergesort, on the other hand, requires O(n) extra storage, which makes it quite expensive for arrays.
+
+Quicksort requires to access different indices for its operations, but this access is not directly possible in linked lists, as there are no continuous blocks; therefore to access an element we have to iterate through each node from the beginning of the linked list. Also, Mergesort is implemented without extra space for LinkedLists.
+
+In such case, overhead increases for Quicksort and Mergesort is generally preferred.
+
+#### Conclusion
+
+Quicksort is an elegant sorting algorithm that is very useful in most cases.
+
+It’s generally an “in-place” algorithm, with the average time complexity of O(n log n).
+
+Another interesting point to mention is that Java’s Arrays.sort() method uses Quicksort for sorting arrays of primitives. The implementation uses two pivots and performs much better than our simple solution, that is why for production code it’s usually better to use library methods.
+
+#### Pseudocode
+
+```java
+/*
+  low  --> Starting index
+  high  --> Ending index
+*/
+quickSort(arr[], low, high) {
+    if (low < high) {
+        /*
+          pi is partitioning index,
+          arr[pi] is now at right place
+        */
+        pi = partition(arr, low, high);
+
+        quickSort(arr, low, pi - 1);  // Before pi
+        quickSort(arr, pi + 1, high); // After pi
+    }
+}
+```
+
+<details>
+<summary>Implementation</summary>
+
+> The first method is quickSort() which takes as parameters the array to be sorted, the first and the last index. First, we check the indices and continue only if there are still elements to be sorted.
+
+> We get the index of the sorted pivot and use it to recursively call partition() method with the same parameters as the quickSort() method, but with different indices:
+
+```java
+public void quickSort(int arr[], int begin, int end) {
+    if (begin < end) {
+        int partitionIndex = partition(arr, begin, end);
+
+        quickSort(arr, begin, partitionIndex-1);
+        quickSort(arr, partitionIndex+1, end);
+    }
+}
+```
+
+> Let’s continue with the partition() method. For simplicity, this function takes the last element as the pivot. Then, checks each element and swaps it before the pivot if its value is smaller.
+
+> By the end of the partitioning, all elements less then the pivot are on the left of it and all elements greater then the pivot are on the right of it. The pivot is at its final sorted position and the function returns this position:
+
+```java
+private int partition(int arr[], int begin, int end) {
+    int pivot = arr[end];
+    int i = (begin-1);
+
+    for (int j = begin; j < end; j++) {
+        if (arr[j] <= pivot) {
+            i++;
+
+            int swapTemp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = swapTemp;
+        }
+    }
+
+    int swapTemp = arr[i+1];
+    arr[i+1] = arr[end];
+    arr[end] = swapTemp;
+
+    return i+1;
+}
+```
+
+</details>
+
+<hr>
 
 ### Radix Sort
 
+<hr>
+
 ## Other Algorithms
+
+<hr>
 
 ### Topological sort
 
+<hr>
+
 ### Dijkstra's algorithm
+
+<hr>
 
 ### Kruskal's algorithm
 
+<hr>
+
 ### Prim's algorithm
+
+<hr>
+
+## Complexity of sorting
+
+- **Computational complexity** - framework to study efficiency of algorithms for solving a particular problem _X_
+- **Model of computation** - Allowable operations
+- **Cost model** - Operation count(s)
+- **Upper Bound** - Cost guarantee provided by **some** algorithm for _X_.
+- **Lower bound** - Proven limit on cost guarantee of **all** algorhtms for _X_.
+- **Optimal algorithm** - Algorithm with best possible cost guarantee for _X_.
+  - "BEST" -> lower bound ~ upper bound
+
+###Complexity results in context
+
+- Lower bound may not hold if the algorithm has information about
+  - initial order of the input
+  - distribution of key values
+  - representation of the keys
+- Examples
+
+  - _Partially-ordered arrays_ : Depending on theinitial order of the input, we may not need _N_ lg _N_ compares
+    - Insertion sort requires only N-1 compares if input array is sorted
+  - _Duplicate keys_: Depending on the input destribution of duplicates, we may not need _N_ lg _N_ compares
+  - _Digital properties of keys_
+
+<hr>
 
 ## Big-O Analysis of Algorithms
 
+<hr>
+
 ### Time Function: T(N)
+
+<hr>
 
 ### Big-O notation
 
+<hr>
+
 ## Combinatorics & Probability
+
+<hr>
 
 ## System Design
 
+<hr>
+
 ### Scalability
+
+<hr>
 
 ## Hardware
 
+<hr>
+
 ## Networking
+
+<hr>
 
 ### UDP
 
+<hr>
+
 ### TCP/IP
+
+<hr>
 
 ### HTTP
 
+<hr>
+
 ### SSL
+
+<hr>
 
 ## Design Patterns
 
+<hr>
+
 ## Testing
+
+### Assert
+
+[Example](/implementation/merge.md#merging:-non-recursive-implementation)
+
+Statement to test assumptions about program
+
+- Helps detect logic bugs
+- Documents code
+
+If you put in the beginning of the code, assertions let you know what the code should be.
+
+- Java assert statement: Throws exception unless boolean condition is true
+  - `assert isSorted(a, lo, hi);`
+- Can enable or disable at runtime: _No cost in production code_
+
+```java
+  java -ea MyProgram // enable assertions
+  java -da MyProgram // disable assertions (default)
+```
+
+- Best practices
+  - Use assertions to check internal invariants
+  - Assume assertions will be disabled in production code (_do not use for external artument checking_)
+
+<hr>
 
 ### Unit test
 
+<hr>
+
 ### Mock objects
+
+<hr>
 
 ### Integration testing
 
+<hr>
+
 ### Dependency injection
+
+<hr>
+
+<!--- Java ----------------------------------------------------------------->
+
+## Java
+
+### Iterators
+
+[Implementations](/implementation/java.md#advanced-java)
+
+- What is an Iterable?
+  - Has a method that returns an `Iterator`
+
+### Comparator
+
+- Comparator interface: sort using an **_altarnate order_**
+- Required property: must be a **_total order_**
+- Ex
+  - sort strings by
+    - natural order : `Now is the time`
+    - case insensitive : `is No the time`
+    - spanish : `cafe cafetero cuarto churro nubo nono`
+    - british phone book : `McKinley Mackintosh`
+    - ...
+- Decouples the definition of the data type from the definition of what it means to compare two objects of that type
+
+#### Comparator with system sort
+
+[To use with Java system sort](/implementation/java.md#comparator-with-system-sort):
+
+- Create `Comparator` object
+- Pass as second argument to `Arrays.sort()`
+
+#### Comparator with our sorting libraries
+
+[To support comparators in our sort implementations](/implementation/java.md#comparator-with-our-sorting-libraries):
+
+- Use `Object` instead of `Comparable`
+- Pass `Comparator` to `sort` and `less()` and use it in `less()`
+
+<hr>
