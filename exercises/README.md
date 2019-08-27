@@ -1,12 +1,14 @@
 # Exercises
 
 ## HashMaps
+
 #### [Map-1 > mapShare](http://codingbat.com/prob/p148813)
+
 Modify and return the given map as follows: if the key "a" has a value, set the key "b" to have that same value. In all cases remove the key "c", leaving the rest of the map unchanged.
 
-- mapShare({"a": "aaa", "b": "bbb", "c": "ccc"}) → {"a": "aaa", "b": "aaa"}
-- mapShare({"b": "xyz", "c": "ccc"}) → {"b": "xyz"}
-- mapShare({"a": "aaa", "c": "meh", "d": "hi"}) → {"a": "aaa", "b": "aaa", "d": "hi"}
+- `mapShare({"a": "aaa", "b": "bbb", "c": "ccc"}) → {"a": "aaa", "b": "aaa"}`
+- `mapShare({"b": "xyz", "c": "ccc"}) → {"b": "xyz"}`
+- `mapShare({"a": "aaa", "c": "meh", "d": "hi"}) → {"a": "aaa", "b": "aaa", "d": "hi"}`
 
 <details>
 <summary>Solution</summary>
@@ -33,6 +35,7 @@ public Map<String, String> mapShare(Map<String, String> map) {
 </details>
 
 #### [Map-1 > mapAB](https://codingbat.com/prob/p107259)
+
 Modify and return the given map as follows: for this problem the map may or may not contain the "a" and "b" keys. If both keys are present, append their 2 string values together and store the result under the key "ab".
 
 - mapAB({"a": "Hi", "b": "There"}) → {"a": "Hi", "ab": "HiThere", "b": "There"}
@@ -56,8 +59,11 @@ public Map<String, String> mapAB(Map<String, String> map) {
 </details>
 
 ## Stacks
+
 #### [Arithmetic Expression Evaluation](https://www.cs.cmu.edu/~adamchik/15-121/lectures/Stacks%20and%20Queues/Stacks%20and%20Queues.html)
+
 ##### Converting from Infix to Postfix
+
 An important application of stacks is in parsing. For example, a compiler must parse arithmetic expressions written using infix notation:
 
 `1 + ((2 + 3) * 4 + 5) * 6`
@@ -85,7 +91,7 @@ Suppose you want to compute the cost of your shopping trip. To do so, you add a 
 
 Depending on the calculator, the answer would be either 235.95 or 230.875. To avoid this confusion we shall use a postfix notation:
 
-`70  150 + 1.0725 *`
+`70 150 + 1.0725 *`
 
 Postfix has the nice property that parentheses are unnecessary.
 
@@ -145,6 +151,6 @@ push(pop() + pop())             5 103
 push(pop() * pop())             515
 ```
 
->Note, that division is not a commutative operation, so 2/3 is not the same as 3/2.
+> Note, that division is not a commutative operation, so 2/3 is not the same as 3/2.
 
 </details>
