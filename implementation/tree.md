@@ -1,40 +1,6 @@
 # Tree implementation
 
-<img src="../images/binary_tree_traversals.png" width="400">
-
-- each node needs:
-  1. a value
-  2. a parent
-  3. a left child
-  4. a right child
-- to implement a generic tree, would just have a list instead of left/right children
-  - because we don't know how many leaf nodes the tree might have
-
-###### DFS
-
-- preOrder Traversal
-- postOrder Traversal
-
-###### BFS
-
-Visit: `A B C D E F G`
-
-- levelOrder Traversal
-- challenging - when finish with `B`, how do we know to know to `C`
-  - keep two lists:
-    - _list_ of nodes starting with root
-    - _visited_ nodes
-      - while at root `A`
-      - add `A` to `list`
-      - remove `A` from `list` and add `A`'s children to `list`
-        - add `A` to `visited`
-      - remove next node from `list` --> `B` and add its children to `list`
-        - remove `B` from `list` and add it to `visited`
-      - etc...
-  - end up using tree like a `Queue`
-
-<details>
-<summary>Implementation</summary>
+## Traversal implementation
 
 ```java
 public class BinaryTree<E> {
