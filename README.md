@@ -391,21 +391,9 @@ A set is an **_unordered_** collection of objects.
 
 - A **_tree_** is an undirected, connnected, acyclic graph
 
-> [Implementation](/implementation/tree.md#tree-implementation)
-
-#### Strengths
-
-- Speed of insertion and deletion
-- Speed of access
-- Maintaining sorted order
-
-#### Weaknesses
-
-- Some overhead
+[Implementation](/implementation/tree.md#tree-implementation)
 
 #### Terminology
-
-![](images/binary_tree.jpg)
 
 - _root node_
   - Has no parent
@@ -419,11 +407,15 @@ A set is an **_unordered_** collection of objects.
 - _leaf nodes_
   - Child node with no children
 
-#### Binary Tree
+![](images/binary_tree.jpg)
+
+#### Binary Tree vs. Binary Search Tree
+
+##### Binary Tree
 
 - A _Binary Tree_ is a tree data structure in which each node has at most two children, which are referred to as the _left child_ and _right child_
 - **_Full Tree_**: a tree in which every node has either 0 or 2 children
-- **_Perfect Binary Tree_**: a binary tree in which all interior nodes have two children and all leave have the same depth
+
 - **_Complete Tree_**: a binary tree in which every level _except possibly the last_ is full and all nodes in the last level are as far left as possible
 
 ##### Binary Search Tree
@@ -433,33 +425,95 @@ A set is an **_unordered_** collection of objects.
 - Very efficient at retrieving data
   - at every step, discarding whole subtrees of data
 - Child nodes
-  - left child - must be _LESS_ than parent
-  - right child - must be _MORE_ than parent
+  - left child - must be **_LESS_** than parent
+  - right child - must be **_MORE_** than parent
+  - These inequalities must be true for all of a node's descendants, not just its immediate children.
 
-###### Time Complexity:
+> A binary search tree imposes the condition that, for each node, its left descendents are less than or equal to the current node, which is less than the right descendants.
 
-- Access: `O(log(n))`
-- Search: `O(log(n))`
-- Insert: `O(log(n))`
-- Remove: `O(log(n))`
+#### Balanced vs Unbalanced
 
-> **_Java_**: `TreeMap`
+Balancing a tree doesn't mean the left and right subtrees are exaclty the same size (unlike "perfect binary trees")
 
-#### Complete binary tree
+- "Balanced" tree really means something more like "not terribly imbalanced". Its balanced enough to ensure _O(log n)_ times for `insert` and `find`, but it's not necessarily as balanced as it could be.
 
-- Complete tree: Perfectly balanced, expect for bottom level
+- Two common types of balanced trees:
+  - Red-black trees
+  - AVL trees
 
-- Property: Height of complete tree with _N_ nodes is &lfloor;lg _N_&rfloor;
-- _Proof_: Height only increases when _N_ is a power of 2
+#### Complete binary trees
 
-##### Traversals
+Binary tree in which every level of the tree is fully filled, except for perhaps the last level (last level filled left to right)
 
-- Depth-first traversal
-  - PreOrder traversal - visit the parent first and then left and right children;
-  - InOrder traversal - visit the left child, then the parent and the right child;
-  - PostOrder traversal - visit left child, then the right child and then the parent;
-- Breadth-first traversal
-  - There is only one kind of breadth-first traversal--the level order traversal. This traversal visits nodes by levels from top to bottom and from left to right.
+```
+  Not a complete bin tree  |   Complete binary tree
+      ()                        ()
+     /  \                      /  \
+   ()    ()                  ()    ()
+  /  \     \                /  \   /
+()   ()     ()             ()  () ()
+```
+
+#### Full binary tree
+
+A full binary tree is a binary tree in which every node has either zero or two children.
+
+- No nodes have only one child.
+
+```
+  Not a full bin tree  |   Full bin tree
+      ()                        ()
+     /  \                      /  \
+   ()    ()                  ()    ()
+  /  \     \                /  \
+()   ()     ()            ()    ()
+```
+
+#### Perfect binary tree
+
+A perfect binary tree is one where all interior nodes have two children and all leaf nodes are at the same laevel.
+
+Rare in interviews and in real life -> a perfect tree must have exactly 2<sup>k</sup>-1 nodes (where _k_ is the number of levels)
+
+> In an interview, don't assume a binary tree is perfect!
+
+- Visually, it looks esentially:
+
+```
+     ()
+    /  \
+  ()    ()
+ /  \  /  \
+()  ()()  ()
+```
+
+#### Binary tree traversals
+
+[Full implementation](/implementation/tree.md#traversal-implementation)
+
+##### In-Order traversal
+
+Visit: **_Left branch_** -> **_current node_** -> **_right branch_**
+
+> When performed on a binary search tree, it visits the nodes in ascending order (hence the name "in-order").
+
+```java
+void inOrderTraversal(TreeNode node){
+  if(node != null) {
+    inOrderTraversal(node.left);
+    visit(node);
+    inOrderTraversal(node.right);
+  }
+}
+```
+
+##### Pre-Order traversal
+
+Visit: Current node -> Left branch -> Right branch
+
+> In this traversal, the **root is always the first node visited**.
+
+##### Post-Order Traversal
 
 #### AVL Tree
 

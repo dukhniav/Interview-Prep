@@ -1,0 +1,18 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - coins",
+            "request": "launch",
+            "mainClass": "exercises.coins",
+            "projectName": "Interview-Prep_f6ee261"
+        },
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - isunique",
+            "request": "launch",
+            "mainClass": "exercises.isunique",
+            "projectName": "Interview-Prep_f6ee261"
+        }
+    ]
+}
