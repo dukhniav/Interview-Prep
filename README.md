@@ -13,8 +13,6 @@
   - [Hash Tables](#hash-tables)
   - [Sets](#sets)
   - [Trees](#trees)
-  - [Heaps](#heaps)
-  - [Graphs](#graphs)
 - Recursion
 - Dynamic Programming
 - [Sorting Algorithms](#sorting)
@@ -387,119 +385,141 @@ A set is an **_unordered_** collection of objects.
 
 [Lynda: Introduction to tree data structures (video)](https://archive.org/details/0102WhatYouShouldKnow/07_02-introductionToTreeDataStructures.mp4)
 
-> Logical data structure
+- Tree TOC:
+  - [Tree vs. Binary Tree](#trees-vs-binary-trees)
+  - [Binary Tree vs. Binary Search Tree](#binary-tree-vs-binary-search-tree)
+  - [Balanced vs. Unbalanced](#balanced-vs-unbalanced)
+  - Complete Binary Tree
+  - Full Binary Trees
+  - Perfect Binary Trees
+  - Tree Traversal
+    - In-Order
+    - Pre-Order
+    - Post-Order
+  - Binary Heaps
+  - Tries (Prefix Trees)
+  - Graphs
+    - Adjacency List
+    - Adjacency Matrices
+    - Graph Search
 
-- A **_tree_** is an undirected, connnected, acyclic graph
+[** Implementation **](/implementation/tree.md#tree-implementation)
 
-[Implementation](/implementation/tree.md#tree-implementation)
-
-#### Terminology
-
-- _root node_
-  - Has no parent
-  - Is parent to child nodes
-  - Contain links to other nodes (child nodes)
-- _child nodes_
-  - Nodes that have a parent
-  - Each one can have own child node
-- _siblings_
-  - Child nodes that have the same parent
-- _leaf nodes_
-  - Child node with no children
+- Each tree has a root node.
+  - Not strictly necessary in graph theory)
+- The root node has zero or more child nodes
+- Each child node has zero or more child nodes, and so on.
+- A node is called `leaf` if it has no children.
 
 ![](images/binary_tree.jpg)
 
-#### Binary Tree vs. Binary Search Tree
-
-##### Binary Tree
-
-- A _Binary Tree_ is a tree data structure in which each node has at most two children, which are referred to as the _left child_ and _right child_
-- **_Full Tree_**: a tree in which every node has either 0 or 2 children
-
-- **_Complete Tree_**: a binary tree in which every level _except possibly the last_ is full and all nodes in the last level are as far left as possible
-
-##### Binary Search Tree
-
-- Data structure that naturaly stays sorted
-- No duplicate keys
-- Very efficient at retrieving data
-  - at every step, discarding whole subtrees of data
-- Child nodes
-  - left child - must be **_LESS_** than parent
-  - right child - must be **_MORE_** than parent
-  - These inequalities must be true for all of a node's descendants, not just its immediate children.
-
-> A binary search tree imposes the condition that, for each node, its left descendents are less than or equal to the current node, which is less than the right descendants.
-
-#### Balanced vs Unbalanced
-
-Balancing a tree doesn't mean the left and right subtrees are exaclty the same size (unlike "perfect binary trees")
-
-- "Balanced" tree really means something more like "not terribly imbalanced". Its balanced enough to ensure _O(log n)_ times for `insert` and `find`, but it's not necessarily as balanced as it could be.
-
-- Two common types of balanced trees:
-  - Red-black trees
-  - AVL trees
-
-#### Complete binary trees
-
-Binary tree in which every level of the tree is fully filled, except for perhaps the last level (last level filled left to right)
-
-```
-  Not a complete bin tree  |   Complete binary tree
-      ()                        ()
-     /  \                      /  \
-   ()    ()                  ()    ()
-  /  \     \                /  \   /
-()   ()     ()             ()  () ()
-```
-
-#### Full binary tree
-
-A full binary tree is a binary tree in which every node has either zero or two children.
-
-- No nodes have only one child.
-
-```
-  Not a full bin tree  |   Full bin tree
-      ()                        ()
-     /  \                      /  \
-   ()    ()                  ()    ()
-  /  \     \                /  \
-()   ()     ()            ()    ()
-```
-
-#### Perfect binary tree
-
-A perfect binary tree is one where all interior nodes have two children and all leaf nodes are at the same laevel.
-
-Rare in interviews and in real life -> a perfect tree must have exactly 2<sup>k</sup>-1 nodes (where _k_ is the number of levels)
-
-> In an interview, don't assume a binary tree is perfect!
-
-- Visually, it looks esentially:
-
-```
-     ()
-    /  \
-  ()    ()
- /  \  /  \
-()  ()()  ()
-```
-
-#### Binary tree traversals
-
-[Full implementation](/implementation/tree.md#traversal-implementation)
-
-##### In-Order traversal
-
-Visit: **_Left branch_** -> **_current node_** -> **_right branch_**
-
-> When performed on a binary search tree, it visits the nodes in ascending order (hence the name "in-order").
+<details>
+<summary>Very simple definition for Node</summary>
 
 ```java
-void inOrderTraversal(TreeNode node){
-  if(node != null) {
+class Node{
+  public String name;
+  public Node[] children;
+}
+```
+
+</details>
+
+#### Trees vs Binary Trees
+
+A binary tree is a tree in which each node has up to two children.
+
+- Not all trees are binary trees!
+  Could call this a ternary tree:
+
+```
+      (8)
+     / | \
+   (4)(6)(10)
+  /  \     \
+(2)  (1)   (20)
+```
+
+#### Binary Tree vs. Binary Search Tree
+
+A binary search tree is a binary tree in which every node fits a specific ordering property:
+
+- All left descendents <= _n_ < all right descendents.
+  - This must be true for each node _n_.
+
+> The definition of a binary search tree can vary slightly with respect to equality. Under some definitions, the tree cannot have duplicate values. In others, the duplicate values will be on the right or can be on either side. All are valide definitions... Clarify with interviewer!
+
+Note that this inequality but be true for all of a node's descendents, nut just the immediate children.
+
+```
+     BST                     Not a BST
+      (8)                      (8)
+     /  \                     /  \
+   (4)  (10)                (4)  (10)
+  /  \     \               /  \     \
+(2)  (6)   (20)          (2) (12)  (20)
+```
+
+#### Balanced vs. Unbalanced
+
+One way to think about it is that a 'balanced' trees really means something more like "not terribly imbalanced". IT's balanced enough to ensure _O(log n)_ time for `insert` and `find`, but its not necessarily as balanced as it should be.
+
+Balaced trees include:
+
+- AVL trees
+- Red-black trees
+
+#### Complete Binary Tree
+
+A complete binary tree is a binary tree in which every level of the tree is fully filled, except for (perhaps) the last level. The last level is filled from **left to right**.
+
+```
+     Complete               Not complete
+      (8)                      (8)
+     /  \                     /  \
+   (4)  (10)                (4)  (10)
+  /  \   /                 /  \     \
+(2) (6) (20)             (2) (12)  (20)
+```
+
+#### Full Binary Trees
+
+A full binary tree is a binary tree in which every node has eiher zero or two children. Thas is, no nodes have only one child.
+
+```
+     Full                   Not full
+     (10)                      (10)
+     /  \                     /    \
+   (5)  (20)               (5)     (20)
+        / \                  \      / \
+      (3) (7)               (12)  (3) (7)
+      / \                         / \
+    (9) (18)                    (9) (18)
+```
+
+#### Perfect Binary Trees
+
+A perfect binary tree is one where all interior nodes have **two** children and all leaf nodes are the same level. Visually, it looks essentially like:
+
+```
+      (10)
+      /  \
+   (5)   (20)
+  /  \    / \
+(9) (18)(3) (7)
+```
+
+> Not that perfect trees are rare in interviews and in real life, as a perfect ree must have exactly **2<sup>k</sup>-1** nodes (where _k_ is the number of levels). In interviews, do not assume a binary tree is perfect!
+
+### Binary Tree Traversal
+
+##### In-Order
+
+In-order traversal means to 'visit' the left branch, then the current node, and finally, the right branch.
+
+```java
+void inOrderTraversal(TreeNode) {
+  if(node != null){
     inOrderTraversal(node.left);
     visit(node);
     inOrderTraversal(node.right);
@@ -507,91 +527,190 @@ void inOrderTraversal(TreeNode node){
 }
 ```
 
-##### Pre-Order traversal
+When performed on a binary search tree, it visits the node in ascending order(hence the name "in-order").
 
-Visit: Current node -> Left branch -> Right branch
+##### Pre-Order
 
-> In this traversal, the **root is always the first node visited**.
+Pre-order traversal visits the current node **before its child nodes** (hence the name "pre-order")
 
-##### Post-Order Traversal
+```java
+void inOrderTraversal(TreeNode) {
+  if(node != null){
+    visit(node);
+    inOrderTraversal(node.left);
+    inOrderTraversal(node.right);
+  }
+}
+```
 
-#### AVL Tree
+In a pre-order traversal, the root is alwas the **first** node visited.
 
-#### Red-Black Tree
+##### Post-Order
 
-<hr>
-<!--- HEAPS ------------------------------------------------------------------>
+Post-order traversal visits the current node after its child nodes (hence the name "post-order").
 
-### Heaps
+```java
+void inOrderTraversal(TreeNode) {
+  if(node != null){
+    inOrderTraversal(node.left);
+    inOrderTraversal(node.right);
+    visit(node);
+  }
+}
+```
+
+In a post-order traversal, the root is always the **last** node visited.
+
+#### Binary Heaps
 
 - [Lynda: Using heap data structures (video)](https://archive.org/details/0102WhatYouShouldKnow/07_04-usingHeapDataStructures.mp4)
 
-> Heaps are implemented as [Binary Trees](#binary-tree)
+##### Min-Heaps and Max-Heaps
 
-- Filled out:
-  - Top to bottom
-  - Left to right
+Min-heaps discussed here. Max-heaps are essentially equivalent, but the elements are in descending order rather than ascending.
 
-```
-()       ()       ()         ()        ()
-        /        /  \       /  \      /  \
-       ()       ()  ()     ()  ()    ()  ()
-                          /         /  \
-                         ()        ()  ()
+A min-heap is a _complete_ binary tree (filled other than the rightmost elements on the last level) where each node is smaller than its children. The root, therefore, is the minimum element in the tree.
 
 ```
+       (4)
+       / \
+    (50) (7)
+   /  \   /
+ (55)(90)(87)
+```
 
-#### Min Heap or Max Heap?
+There are two key operations on a min-heap: `insert` and `extract_min`.
 
-##### Lowest (or highest) value at the top of the heap
+###### `Insert`
 
-- Min heap rule: a child must always be **_greater than_** its parent
-- Max heap rule: a child must always be **_less than_** its parent
+when inserting into a min-heap, always start by inserting the element at the bottom. We insert at the next available sopt (looking left to right on the bottommost level) so as to maintain the complete tree property.
 
-* A heap is not a fully sorted data structure
-  - Only the minimum or maximum is at the top
-  - Perfect for **_priority queues_**
+Then, we "fix" the tree by swapping the new element with its parent, until we find an appropriate spot for the element. We essentially bubble up the minimum element.
 
-> **_Java_**: `Class PriorityQueue<E>`
+```
+Step 1: Insert 2
+        (4)
+       /   \
+    (50)   (7)
+   /  \   /   \
+ (55)(90)(87) (2)
 
-#### Binary Heap
+Step 2: Swap 2 and 7
+       (4)
+      /   \
+  (50)    (2)
+  /  \   /   \
+(55)(90)(87) (7)
 
-Array representation of a heap-ordered [complete binary tree](#complete-binary-tree).
+Step 3: Swap 2 and 4
+       (2)
+      /   \
+  (50)    (4)
+  /  \   /   \
+(55)(90)(87) (7)
+```
 
-<hr>
-<!--- GRAPH ------------------------------------------------------------------>
+This takes _O(log n)_ time, where _n_ is the number of nodes in the heap.
 
-### Graphs
+###### `Extract Minimum Element`
+
+Finding the minum element of a min-heap is easy: it's always at the top. The trickier part is how to remove it.
+
+1. remove the minimum element and swap it with the last element in the heap (bottommost, rightmost element).
+2. Bubble down this element, swapping it with one of its children until the min-heap property is restored.
+
+Do we swap it with the left child or the right child? That depends on their values. There is no inherent ordering between the left and right element, but you'll need to take the smaller one in order to maintain the min0heap ordering.
+
+```
+          (4)
+         /   \
+      (50)   (23)
+     /  \   /   \
+  (88)(90)(32) (74)
+  /
+(96)
+
+Step 1: Extract and replace min with 96
+          (96)
+         /   \
+      (50)   (23)
+     /  \   /   \
+  (88)(90)(32) (74)
+
+Step 1: Swap 23 and 96
+          (23)
+         /   \
+      (50)   (96)
+     /  \   /   \
+  (88)(90)(32) (74)
+
+Step 1: Swap 32 and 96
+          (23)
+         /   \
+      (50)   (32)
+     /  \   /   \
+  (88)(90)(96) (74)
+```
+
+Algorithm will also take _O(log n)_ time.
+
+#### Tries (Prefix Trees)
+
+#### Graphs
 
 [Lynda: Introduction to Graphs (video)](https://archive.org/details/0102WhatYouShouldKnow/07_05-introductionToGraphs.mp4)
 
-Unlike Linked Lists and Trees, where:
+A tree is actually a type of graph, but not all graphs are trees. Simply put, a tree is a connected graph without cycles.
 
-- A node can only point to another node
-- A child can only have one parent
-- Each parent only has specific children
-- Siblings are not linked together
+A graph is simply a collection of nodes with edges between (some of) them.
 
-A graph is a collection of nodes where:
+- Graphs can be either directed or undirected.
+  - While directed edges are like a one-way street, undirected edges are like a two-way street.
+- The graph might consists of multiple isolated subgraphs.
+  - If there is a path between every pair of vertices, it is called a 'connected graph'.
+- The graph can also have cycles (or not).
+  - An **acyclic graph** is one without cycles.
 
-- any node can link to any other node
-- a node can link to mulitple other nodes, what ever is needed
+There are two common ways to represent a graph:
 
-#### Terminology
+##### Adjacency List
 
-- Nodes - **_vertices_**
-- Links between nodes - **_edges_**
-- Directed / Undirected graphs
-- Weighted graphs
-  - Adding weights to edges to denote "importance"
+The most common way to represent a graph. Every vertex (or node) stores a list of adjacent vertices. In an undirected graph, an edge like _(a, b)_ would be stored twice: once in _a_'s adjacent vertices and once in _b_'s adjacent vertices.
 
-#### Graph implementation
+A simple class definition for a graph node could look essentially the same as a tree node:
 
-Situation specific
+```java
 
-- Linked list - single directed graph
-- Trees
-- Heaps
+class Graph{
+  public Node[] nodes;
+}
+
+class Node {
+  public String name;
+  public Node[] children;
+}
+
+```
+
+The graph class is used because, unlike in a `tree`, you can't necesssarily reach all the nodes from a single node.
+
+You don't necessarily need any adiditional classes to represent a graph. An array (or a hash table) of lists (arrays, arraylists, linked lists, etc) can store the adjacency list. An example graph could be represented as:
+
+```
+0: 1
+1: 2
+2: 0, 3
+3: 2
+4: 6
+5: 4
+6: 5
+```
+
+This is a bit cmore compact, but it isn't quite as clean. We tent to use node classes unless there's a compeling reason not to.
+
+##### Adjacency Matrices
+
+#### Graph Search
 
 <hr>
 
